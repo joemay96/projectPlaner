@@ -3,7 +3,7 @@ const colorMode = useColorMode();
 
 const toggleDark = () => {
   if (colorMode.preference === "dark") {
-    colorMode.preference = "bumblebee";
+    colorMode.preference = "light";
   } else {
     colorMode.preference = "dark";
   }

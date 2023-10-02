@@ -8,7 +8,7 @@
     <utilsAppHeader />
     <slot />
   </utilsAppContainer>
-  <utilsFooter />
+  <!-- <utilsFooter /> -->
 </template>
 
 <style global>

@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [],
-    // content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+    // content: [],
+    content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
     theme: {
-        extend: ['bumblebee'], //'pastel', 'coffee'],
+        extend: ['light', "dark"], //'pastel', 'coffee'], //bumblebee
         fontFamily: {
             sans: [
                 'Comfortaa',
@@ -56,7 +56,7 @@ module.exports = {
         rtl: false,
         prefix: '',
         darkTheme: 'dark',
-        lightTheme: 'bumblebee',
+        lightTheme: 'light',
         // lightTheme: 'pastel',
         // darkTheme: 'coffee',
     },
