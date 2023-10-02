@@ -25,10 +25,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-body {
-  /* height: 100%;*/
-}
-
 /* changing the scrollbar */
 ::-webkit-scrollbar {
     width: 10px;

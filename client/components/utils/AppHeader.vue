@@ -13,7 +13,6 @@ const toggleDark = () => {
 let user = ref();
 
 if(process.client) {
-  // @ts-ignore
   user = ref({
     username: "Josef",
   })
@@ -24,13 +23,8 @@ if(process.client) {
 
 <template>
     <div class="flex items-center md:justify-between justify-center my-1">
-      <!-- Sidebar -->
-      <div class="z-60 mx-2">
-        <label for="sidebar" class="btn btn-square btn-ghost">
-				  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-			  </label>
-      </div>
-      <div class="hidden md:block z-40">
+      <UtilsSidebarMenu />
+      <div class="hidden md:block">
         <ul class="menu menu-horizontal mr-4">
           <li>
             <label class="swap swap-rotate">
