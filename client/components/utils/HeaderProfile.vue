@@ -4,6 +4,8 @@
 const router = useRouter();
 // const client = useSupabaseClient();
 
+let user = null;
+
 const logout = async () => {
   // await Client.logout();
   navigateTo("/")
@@ -14,7 +16,12 @@ const logout = async () => {
 	<div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img src="../../assets/images/profile.jpeg" />
+          <template v-if="user">
+              <img :src="user.imagePath" alt="user-profile" />
+          </template>
+          <template v-else>
+            <img src="../../assets/images/dummy-user.jpg" />
+          </template>
         </div>
       </label>
       <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">

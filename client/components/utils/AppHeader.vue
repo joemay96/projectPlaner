@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import {getUserLS} from "../../plugins/auth/pocketbase.js"
 // const route = useRoute();
 const colorMode = useColorMode();
+
+let user; 
 
 const toggleDark = () => {
   if (colorMode.preference === "dark") {
@@ -10,12 +13,8 @@ const toggleDark = () => {
   }
 };
 
-let user = ref();
-
 if(process.client) {
-  user = ref({
-    username: "Josef",
-  })
+  user = getUserLS();
 //   user = await Client.isAuthenticated();
 }
 </script>
@@ -26,6 +25,7 @@ if(process.client) {
       <UtilsSidebarMenu />
       <div class="hidden md:block">
         <ul class="menu menu-horizontal mr-4">
+          <authLogin />
           <li>
             <label class="swap swap-rotate">
               <input type="checkbox" @click="toggleDark" />

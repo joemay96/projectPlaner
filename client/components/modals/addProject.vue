@@ -1,4 +1,3 @@
-import { UtilsTagCreation, UtilsTechSelect } from '../../.nuxt/components';
 <script setup lang="ts">
 const workEstimation = [
 	"Small (few days)",
