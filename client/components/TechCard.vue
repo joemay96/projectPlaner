@@ -14,7 +14,7 @@ const imageUrl =  new URL(`../assets/images/tech/${picValue}.jpg`, import.meta.u
 	<div class="card bg-base-300 shadow-xl "> <!-- image-full -->
 		<!-- <figure><img :src="imageUrl" alt="TechStack" /></figure> -->
 		<div class="card-body items-center text-center p-4">
-			<h2 class="text-lg font-bold">{{name}}</h2>
+			<NuxtLink to="/tech" class="text-lg font-bold hover:underline hover:cursor-pointer">{{name}}</NuxtLink>
 		</div>
 	</div>
 </template>

@@ -27,7 +27,7 @@ function rmTag(index: number) {
 			<select class="select select-bordered" @change="addTech()" v-model="techInput">
 				<option disabled selected>Pick option</option>
 				<template v-for="t, index in techStack" :key="index">
-				  <option>{{ t }}</option>
+				  <option>{{ t.name }}</option>
 				</template>
 			</select>
 		</div>
