@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import {projects} from "../data/TitleProjects.js"
+
+definePageMeta({
+  middleware: [
+    'no-auth',
+	'refresh-auth'
+  ],
+});
 </script>
 
 <template>

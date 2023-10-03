@@ -1,14 +1,17 @@
 <script setup lang="ts">
 // Habe im Moment kein Client modul
-// import Client from "~/modules/auth/authConnector.mjs";
+import client from "../../plugins/auth/client.js";
 const router = useRouter();
-// const client = useSupabaseClient();
 
-let user = null;
+let user: any;
+
+if(process.client) {
+  user = client.getUserLS();
+}
 
 const logout = async () => {
-  // await Client.logout();
-  navigateTo("/")
+  await client.logout();
+  await navigateTo("/auth")
 };
 </script>
 
@@ -24,7 +27,7 @@ const logout = async () => {
           </template>
         </div>
       </label>
-      <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+      <ul v-if="user" tabindex="0" class="z-40 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
         <!-- <li> -->
           <!-- <NuxtLink class="justify-between" to="/profile"> -->
             <!-- Profile -->

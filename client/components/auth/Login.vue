@@ -1,13 +1,8 @@
-
-import { LogService } from 'pocketbase';
-
-import { RecordService } from 'pocketbase';
-
-import { LogService } from 'pocketbase';
 <script setup lang="ts">
-import PBClient from "../../plugins/auth/pocketbase.js";
+import client from "../../plugins/auth/client.js";
 
-const client = new PBClient();
+const router = useRouter();
+
 const email = ref("")
 const password = ref("")
 
@@ -27,6 +22,8 @@ async function login() {
 			username: authData.record.username,
 			imagePath: authData.record.avatar,
 		})
+		login_modal.close()
+		await navigateTo("/")
 	}
 }
 
@@ -36,10 +33,13 @@ async function login() {
 	<button class="btn btn-ghost" onclick="login_modal.showModal()">Login</button>
 	<dialog id="login_modal" class="modal">
 	<div class="modal-box w-full max-w-2xl">
+		<form method="dialog">
+			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+		</form>
 		<h3 class="font-bold text-lg">Login</h3>
 		<p class="py-4">Login to manage your projects</p>
 		<!-- <div class="modal-action"> -->
-		<form method="dialog" @keydown.enter="login()"> <!-- dialog method-->
+		<form method="" @keydown.enter="login()"> <!-- dialog method-->
 			<div class="form-control w-full max-w-2xl">
 				<label class="label">
 				<span class="label-text">Email</span>

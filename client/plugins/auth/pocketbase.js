@@ -36,13 +36,17 @@ export default class PBClient {
 		}))
 	}
 
+	isAuthenticated() {
+		return this.client.authStore.isValid //&& await pb.collection('users').authRefresh();
+	}
+
+	getUserLS = () => {
+		return localStorage.getItem("user")
+	}
+
 	logout() {
 		this.client.authStore.clear()
 		localStorage.removeItem("user")
 	}
-}
-
-export const getUserLS = () => {
-	return localStorage.getItem("user")
 }
 
