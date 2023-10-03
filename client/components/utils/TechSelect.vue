@@ -1,0 +1,45 @@
+<script setup lang="ts">
+const selectedTech = ref([])
+
+// TODO: Fetching the tech stack for the user and saving it
+import {techStack} from "../../data/Techstack.js"
+
+const techInput = ref()
+
+function addTech() {
+	console.log(techInput.value)
+	selectedTech.value.push(techInput.value)
+	techInput.value = ""
+}
+
+function rmTag(index: number) {
+	selectedTech.value.splice(index, 1)
+}
+
+</script>
+
+<template>
+	<div>
+		<div class="form-control w-full max-w-4xl">
+			<label class="label">
+			  <span class="label-text">Tech Stack*</span>
+			</label>
+			<select class="select select-bordered" @change="addTech()" v-model="techInput">
+				<option disabled selected>Pick option</option>
+				<template v-for="t, index in techStack" :key="index">
+				  <option>{{ t }}</option>
+				</template>
+			</select>
+		</div>
+		<div class="flex flex-row justify-center pt-4">
+			<template id="tagField" v-for="t, index in selectedTech" :key="index">
+				<div class="badge gap-2 badge-lg">
+					{{ t }}
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current hover:cursor-pointer" @click="rmTag(index)">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</div>
+			</template>
+		</div>
+	</div>
+</template>

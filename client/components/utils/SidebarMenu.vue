@@ -23,19 +23,22 @@ const user = {
 				<div class="mt-16 w-40 mask mask-hexagon-2">
 					<img src="../../assets/images/profile.jpeg" class="mb-4"/>
 				</div>
-				<li><NuxtLink to ="/" class="btn btn-wide btn-secondary mb-10 pt-4">Create new Project</NuxtLink></li>
+				<li><button class="btn btn-wide btn-secondary mb-10 pt-4" onclick="add_project_modal.showModal()">Create new Project</button></li>
 				<p class="mb-10">{{user.email}}</p>
 				<!-- Sidebar content here -->
-				<li><extensionsSidebarNuxtLink to ="/user" class="btn btn-wide mb-1 btn-ghost">Dashboard</extensionsSidebarNuxtLink></li>
-				<li><extensionsSidebarNuxtLink to ="/user/cv" class="btn btn-wide mb-1 btn-ghost">Manage CVs</extensionsSidebarNuxtLink></li>
-				<li><extensionsSidebarNuxtLink to="/user/letter" class="btn btn-wide mb-1 btn-ghost">Manage Letters</extensionsSidebarNuxtLink></li>
-				<li><extensionsSidebarNuxtLink to="/user/order" class="btn-ghost btn btn-wide rounded-lg">
-					Your Orders
-					<span class="badge">New</span>
+				<li><extensionsSidebarNuxtLink to ="/" class="btn btn-wide mb-1 btn-ghost pt-4">Dashboard</extensionsSidebarNuxtLink></li>
+				<li><extensionsSidebarNuxtLink to="/tech" class="btn-ghost btn btn-wide pt-4 mb-1">
+					Techstack
+				</extensionsSidebarNuxtLink></li>
+				<li><button class="btn btn-wide mb-1 btn-ghost pt-4" onclick="add_tech_modal.showModal()">Add Tech</button></li>
+				<li><extensionsSidebarNuxtLink to="/settings" class="btn-ghost btn btn-wide pt-4 mt-12">
+					Settings
 				</extensionsSidebarNuxtLink></li>
 			</ul>
 		</div>
 	</div>
+	<ModalsAddProject />
+	<ModalsAddTech />
 </template>
 
 <style>

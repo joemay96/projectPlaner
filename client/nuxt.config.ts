@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
 //   target: 'static',
   ssr: false,
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', 'nuxt-icon'],
   // tailwindcss: {
   // 	cssPath: '~/assets/css/tailwind.css',
   // 	viewer: true,
