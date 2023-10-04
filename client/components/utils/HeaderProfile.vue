@@ -3,16 +3,17 @@
 import client from "../../plugins/auth/client.js";
 const router = useRouter();
 
-let user: any;
-
-if(process.client) {
-  user = client.getUserLS();
+const user = JSON.parse(client.getUserLS());
+let imgUrl = "";
+if(user) {
+  imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.imagePath}`;
 }
 
 const logout = async () => {
   await client.logout();
   await navigateTo("/auth")
 };
+
 </script>
 
 <template>
@@ -20,7 +21,7 @@ const logout = async () => {
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <template v-if="user">
-              <img :src="user.imagePath" alt="user-profile" />
+              <img :src="imgUrl" alt="user-profile" />
           </template>
           <template v-else>
             <img src="../../assets/images/dummy-user.jpg" />

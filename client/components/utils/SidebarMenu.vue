@@ -1,8 +1,11 @@
 <script setup lang="ts">
 // const route = useRoute();
+import client from "../../plugins/auth/client.js";
 
-const user = {
-	email: "me@josefmayer.me"
+const user = JSON.parse(client.getUserLS());
+let imgUrl = "";
+if(user) {
+  imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.imagePath}`;
 }
 
 </script>
@@ -21,7 +24,7 @@ const user = {
 			<label for="sidebar" class="drawer-overlay"></label>
 			<ul class="flex items-center menu h-screen overflow-y-auto w-80 bg-base-100 text-base-content mb-1">
 				<div class="mt-16 w-40 mask mask-hexagon-2">
-					<img src="../../assets/images/profile.jpeg" class="mb-4"/>
+					<img :src="imgUrl" class="mb-4"/>
 				</div>
 				<li><button class="btn btn-wide btn-secondary mb-10 pt-4" onclick="add_project_modal.showModal()">Create new Project</button></li>
 				<p class="mb-10">{{user.email}}</p>

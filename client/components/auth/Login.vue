@@ -17,6 +17,7 @@ async function login() {
 		//successful login
 		console.log(authData.record)
 		client.createUserLS({
+			id: authData.record.id,
 			name: authData.record.name,
 			email: authData.record.email,
 			username: authData.record.username,

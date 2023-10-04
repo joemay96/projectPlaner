@@ -17,6 +17,10 @@ export default class PBClient {
         }
 		this.client = new PocketBase(this.URL)
     }
+
+	getUrl() {
+		return this.URL
+	}
 	
 	async authenticate (username, password) {
 		try {
@@ -29,6 +33,7 @@ export default class PBClient {
 
 	createUserLS(user) {
 		localStorage.setItem("user", JSON.stringify({
+			id: user.id,
 			name: user.name,
 			email: user.email,
 			username: user.username,
@@ -41,7 +46,7 @@ export default class PBClient {
 	}
 
 	getUserLS = () => {
-		return localStorage.getItem("user")
+		return localStorage.getItem("user") || ""
 	}
 
 	logout() {
