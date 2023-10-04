@@ -2,7 +2,7 @@
 // const route = useRoute();
 import client from "../../plugins/auth/client.js";
 
-const user = JSON.parse(client.getUserLS());
+const user = client.getUserLS();
 let imgUrl = "";
 if(user) {
   imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.imagePath}`;

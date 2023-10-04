@@ -27,7 +27,7 @@ export default class PBClient {
 			return await this.client.collection("users").authWithPassword(username, password);
 		} catch (err) {
 			console.log(err);
-			 return err
+			return err
 		}
 	};
 
@@ -46,7 +46,17 @@ export default class PBClient {
 	}
 
 	getUserLS = () => {
-		return localStorage.getItem("user") || ""
+		try {
+			return JSON.parse(localStorage.getItem("user"))
+		} catch(err) {
+			return {
+				id: "",
+				name: "",
+				email: "",
+				username: "",
+				imagePath: "",
+			}
+		}
 	}
 
 	logout() {
