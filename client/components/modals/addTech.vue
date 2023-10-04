@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import client from '~/plugins/auth/client';
+// import { tech } from "~/types/tech"
 
 type tech =  {
+	userid: String,
 	name: String,
 	area: String,
 	image: File | null,
 }
 
+const user = client.getUserLS();
+
 let newTech: tech = {
+	userid: user.id,
 	name: "",
 	area: "",
 	image: null
@@ -24,6 +29,7 @@ function onFileChange(e: any) {
 async function saveTech() {
 	if(newTech.name === "") {
 		// TODO: mache Error erkennbar
+		console.error("Name field must be filled out")
 		return
 	}
 	

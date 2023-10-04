@@ -1,8 +1,10 @@
 // import * as dotenv from 'dotenv';
 import PocketBase from "pocketbase/cjs"
+// import { tech } from "~/types/tech"
 // dotenv.config({ path: '../../.env' });
 // require("cross-fetch/polyfill");
 
+// TODO: switch to TS for these files
 
 export default class PBClient {
 	// TODO: change this to .env variable
@@ -66,7 +68,7 @@ export default class PBClient {
 
 	// Tech routes
 
-	async createTech(newTech) {
+	async createTech(newTech) { // type tech
 		return await this.client.collection('tech').create(newTech);
 	}
 
@@ -87,6 +89,8 @@ export default class PBClient {
 	async deleteTechById (id) {
 		return await this.client.collection('tech').delete(id);
 	}
+
+	// Project routes
 
 }
 
