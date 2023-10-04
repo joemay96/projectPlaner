@@ -35,7 +35,9 @@ async function saveTech() {
 	
 	try {
 		const res = await client.createTech(newTech);
-		console.log(res)
+		add_tech_modal.close()
+		// TODO: send a refetch event to /tech
+		console.log(res);
 	} catch (error) {
 		console.log(error)
 	}

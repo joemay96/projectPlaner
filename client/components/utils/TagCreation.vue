@@ -1,10 +1,13 @@
 <script setup lang="ts">
-const tags = ref([])
 
+// TODO: Emit event so that data is treversed back to the parent component
+
+const tags = ref([])
 const tagInput = ref("")
 
 function addTag() {
 	if(tagInput.value != "") {
+		//@ts-ignore
 		tags.value.push(tagInput.value)
 		tagInput.value = ""
 	}

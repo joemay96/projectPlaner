@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import client from "~/plugins/auth/client"
+
+
+// TODO: Emit event so that data is treversed back to the parent component
+
+
 const selectedTech = ref([])
 
-// TODO: Fetching the tech stack for the user and saving it
-import {techStack} from "../../data/Techstack.js"
+let data: any = [];
+
+try {
+	data = await client.getTechList();
+	data = data.items
+} catch (error) {
+	// TODO: report error to user
+	console.log(error)
+}
 
 const techInput = ref()
 
@@ -26,7 +39,7 @@ function rmTag(index: number) {
 			</label>
 			<select class="select select-bordered" @change="addTech()" v-model="techInput">
 				<option disabled selected>Pick option</option>
-				<template v-for="t, index in techStack" :key="index">
+				<template v-for="t, index in data" :key="index">
 				  <option>{{ t.name }}</option>
 				</template>
 			</select>

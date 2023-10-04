@@ -1,9 +1,16 @@
 <script setup lang="ts">
+// const workEstimation = [
+	// "Small (few days)",
+	// "Medium (few weeks)",
+	// "Long (few months)",
+	// "Very long (many months to years)"
+// ]
+
 const workEstimation = [
-	"Small (few days)",
-	"Medium (few weeks)",
-	"Long (few months)",
-	"Very long (many months to years)"
+	"Small",
+	"Medium",
+	"Long",
+	"Very long",
 ]
 
 </script>
