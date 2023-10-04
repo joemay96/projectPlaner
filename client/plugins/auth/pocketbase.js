@@ -63,5 +63,30 @@ export default class PBClient {
 		this.client.authStore.clear()
 		localStorage.removeItem("user")
 	}
+
+	// Tech routes
+
+	async createTech(newTech) {
+		return await this.client.collection('tech').create(newTech);
+	}
+
+	async getTechList() {
+		return await this.client.collection('tech').getList(1, 20, {
+			// filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+		});
+	}
+
+	async getTechById (id) {
+		return await this.client.collection('tech').getOne(id)
+	}
+
+	async updateTechById (id, updatedTech) {
+		return await this.client.collection('tech').update(id, updatedTech);
+	}
+
+	async deleteTechById (id) {
+		return await this.client.collection('tech').delete(id);
+	}
+
 }
 
