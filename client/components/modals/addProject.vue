@@ -43,8 +43,7 @@ function tagDataChange(tagData: [String]) {
 	newProject.tags = tagData;
 }
 
-function saveProject() {
-	console.log(newProject)
+async function saveProject() {
 	if(!newProject || newProject.title == "") {
 		// TODO: emit error to user
 		console.error("Title of the project can't be empty")
@@ -54,8 +53,17 @@ function saveProject() {
 		console.error("Description can not be empty")
 		return
 	}
-	client.createProject(newProject)
-	// add_project_model.checked = false;
+
+	try {
+		const res = await client.createProject(newProject)
+		// add_project_model.close();
+		// TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
+		// ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
+		console.log(res);
+	} catch (error) {
+		console.log(error)
+		//TODO: response to user that error happend
+	}
 }
 
 </script>

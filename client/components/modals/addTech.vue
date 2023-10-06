@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import client from '~/plugins/auth/client';
-// import { tech } from "~/types/tech"
+
+// TODO: tech is not selectable, when already selected
 
 type tech =  {
 	userid: String,
