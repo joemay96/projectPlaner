@@ -2,6 +2,8 @@
 
 // TODO: Emit event so that data is treversed back to the parent component
 
+const emit = defineEmits(["tagChange"])
+
 const tags = ref([])
 const tagInput = ref("")
 
@@ -10,11 +12,17 @@ function addTag() {
 		//@ts-ignore
 		tags.value.push(tagInput.value)
 		tagInput.value = ""
+		tagChange()
 	}
 }
 
 function rmTag(index: number) {
 	tags.value.splice(index, 1)
+	tagChange()
+}
+
+function tagChange() {
+	emit("tagChange", tags.value)
 }
 
 </script>

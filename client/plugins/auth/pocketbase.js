@@ -92,5 +92,26 @@ export default class PBClient {
 
 	// Project routes
 
+	async createProject(newProject) { // type tech
+		return await this.client.collection('projects').create(newProject);
+	}
+
+	async getProjectList() {
+		return await this.client.collection('projects').getList(1, 20, {
+			// filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
+		});
+	}
+
+	async getprojectById (id) {
+		return await this.client.collection('projects').getOne(id)
+	}
+
+	async updateProjectById (id, updatedProject) {
+		return await this.client.collection('projects').update(id, updatedProject);
+	}
+
+	async deleteProjectById (id) {
+		return await this.client.collection('projects').delete(id);
+	}
 }
 

@@ -3,6 +3,7 @@ import client from "~/plugins/auth/client"
 
 
 // TODO: Emit event so that data is treversed back to the parent component
+const emit = defineEmits(["techSelectChange"])
 
 
 const selectedTech = ref([])
@@ -20,13 +21,19 @@ try {
 const techInput = ref()
 
 function addTech() {
-	console.log(techInput.value)
+	//@ts-ignore
 	selectedTech.value.push(techInput.value)
 	techInput.value = ""
+	transmitData();
 }
 
 function rmTag(index: number) {
 	selectedTech.value.splice(index, 1)
+	transmitData();
+}
+
+function transmitData() {
+	emit("techSelectChange", selectedTech.value)
 }
 
 </script>
