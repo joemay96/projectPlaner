@@ -35,6 +35,18 @@ let newProject: project = {
 	tags: [""],
 }
 
+function resetProject() {
+	newProject = {
+	userid: user.id,
+	title: "",
+	description: "",
+	motivation: "",
+	workEstimation: workEstimationValues[0],
+	techStack: [""],
+	tags: [""],
+}
+}
+
 function techDataChange(techData: [String]) {
 	newProject.techStack = techData;
 }
@@ -60,6 +72,7 @@ async function saveProject() {
 		// TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
 		// ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
 		console.log(res);
+		resetProject();
 	} catch (error) {
 		console.log(error)
 		//TODO: response to user that error happend
