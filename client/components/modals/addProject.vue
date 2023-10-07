@@ -86,14 +86,14 @@ async function saveProject() {
 
 	try {
 		const res = await client.createProject(newProject)
-		// add_project_model.close();
+		add_project_modal.close();
 		// TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
 		// ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
 		console.log(res);
 		resetProject();
 	} catch (error) {
-		console.error(error)
 		//TODO: response to user that error happend
+		console.error(error)
 	}
 }
 
