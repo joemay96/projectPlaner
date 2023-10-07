@@ -45,7 +45,7 @@ async function login() {
 				<label class="label">
 				<span class="label-text">Email</span>
 				</label>
-				<input type="text" placeholder="email" class="input input-bordered w-full max-w-2xl" v-model="email" autocomplete="on" />
+				<input type="email" placeholder="email" class="input input-bordered w-full max-w-2xl" v-model="email" autocomplete="on" />
 			</div>
 			<div class="form-control w-full max-w-2xl">
 				<label class="label">

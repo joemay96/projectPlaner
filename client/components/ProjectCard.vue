@@ -38,8 +38,8 @@ async function deleteProject() {
 		<div class="card-body">
 			<div class="flex flex-row justify-between">
 				<h2 class="text-2xl font-bold text-primary text-center hover:text-primary-focus hover:underline"><NuxtLink :to="`/project/${id}`">{{ title }}</NuxtLink></h2>
-				<button class="btn btn-error btn-small" @click="deleteProject()">
-					<Icon name="fluent:delete-48-regular" color="black" />
+				<button class="btn btn-error p-2" @click="deleteProject()">
+					<Icon name="mdi:delete" color="white" class="font-bold" size="28px" />
 				</button>
 			</div>
 			<!-- <div class="divider"><span class="font-bold">Description</span></div> -->
