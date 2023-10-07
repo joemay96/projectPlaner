@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import client from "~/plugins/auth/client.js"
+import { Icon } from '#components'
+const colorMode = useColorMode();
 
 definePageMeta({
   middleware: [
@@ -28,6 +30,29 @@ if(user) {
   imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.imagePath}`;
 }
 
+async function updateUserData() {
+	try {
+		// const res = await client.
+	} catch (error) {
+		
+	}
+}
+
+const baseContentColor = getComputedStyle(document.body).getPropertyValue('var(--bc)');
+
+let iconColor = baseContentColor;
+let iconSize = "72px"
+
+if (colorMode.preference === "dark") {
+	iconColor = "white"
+}
+
+if (window.innerWidth < 384) {
+	iconSize = "52px"
+}
+
+const ProfileIcon = h(Icon, { name: 'mdi:account-circle', size: iconSize, color: iconColor })
+
 </script>
 
 <template>
@@ -35,25 +60,25 @@ if(user) {
 		<h1 class="text-4xl text-secondary font-extrabold pb-8">Settings</h1>
 	</div>
 	<div class="flex flex-col items-center mb-12">
-		<div class="flex flex-row justify-center">
-			<div class="w-96 mask mask-hexagon-2 mt-12">
+		<div class="flex items-center flex-col">
+			<div class="w-56 sm:w-96 mask mask-hexagon-2 mt-12">
 				<img :src="imgUrl" class=""/>
 			</div>
-			<label 
+			<label
 				for="changeProfilePicture" 
-				class="self-end ml-[-100px] hover:cursor-pointer z-10"
+				class="self-end hover:cursor-pointer z-10 relative left-4 bottom-28 sm:bottom-48 pl-0 ml-0"
 				@click="changeProfilePicture"
 			>
-				<Icon name="mdi:account-circle" size="56px" color="white" class="" />
+				<ProfileIcon />
 			</label>
 			<input id="changeProfilePicture" type="file" class="hidden" v-on:change="profilePictureChange" />
 		</div>
-		<div class="w-full flex flex-col items-center mt-6">
+		<div class="w-full flex flex-col items-center mt-6 px-2">
 			<div class="form-control w-full max-w-lg mb-4">
 				<label class="label">
 				<span class="label-text">Change Password</span>
 				</label>
-				<input type="password" placeholder="********" class="input input-bordered w-full max-w-lg" v-model="updateUser.email" />
+				<input type="password" placeholder="********" class="input input-bordered w-full max-w-lg" v-model="updateUser.password" />
 			</div>
 			<div class="form-control w-full max-w-lg mb-4">
 				<p class="mb-1"><span>Current Username: </span>
@@ -73,7 +98,7 @@ if(user) {
 				<!-- </label> -->
 				<input type="email" placeholder="Change email" class="input input-bordered w-full max-w-lg" v-model="updateUser.email" />
 			</div>
-			<button class="btn btn-success max-w-xs" @click="saveTech">Save</button>
+			<button class="btn btn-success max-w-xs" @click="updateUserData">Save</button>
 		</div>
 	</div>
 </template>
