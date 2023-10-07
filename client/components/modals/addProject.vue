@@ -102,6 +102,9 @@ async function saveProject() {
 <template>
 <dialog id="add_project_modal" class="modal">
   <div class="modal-box w-11/12 max-w-4xl">
+	<form method="dialog">
+		<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button> 
+	</form>
     <h3 class="font-bold text-xl">New Project 
 		<div class="tooltip tooltip-bottom tooltip-primary" data-tip="
 		Here you can create a new Project. At least the title and the description are necessary for information.
@@ -113,7 +116,7 @@ async function saveProject() {
 		
 	</p>
     <div class="modal-action">
-      <!-- <form method="dialog"> -->
+      <!-- <form method="dialog" class="modal-backdrop"> -->
 		<div class="w-full flex flex-col">
 			<div class="form-control w-full max-w-4xl">
 				<label class="label">

@@ -30,7 +30,7 @@ function rmTag(index: number) {
 	selectedTech.value.splice(index, 1)
 	transmitData();
 }
-git
+
 function transmitData() {
 	emit("techSelectChange", selectedTech.value)
 }

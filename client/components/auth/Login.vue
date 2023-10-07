@@ -34,7 +34,7 @@ async function login() {
 	<button class="btn btn-ghost" onclick="login_modal.showModal()">Login</button>
 	<dialog id="login_modal" class="modal">
 	<div class="modal-box w-full max-w-2xl">
-		<form method="dialog">
+		<form method="dialog" autocomplete="on">
 			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
 		</form>
 		<h3 class="font-bold text-lg">Login</h3>

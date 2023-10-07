@@ -23,15 +23,19 @@ function deleteTech() {
 	} catch (error) {
 		console.log(error)
 	}
-}	
+}
+
+function searchTech() {
+	window.open(`https://duckduckgo.com/?q=${name}&ia=web`, '_blank').focus();
+}
 
 </script>
 
 <template>
 	<div class="card card-compact max-w-md bg-base-100 shadow-xl">
-		<figure><img :src="imageUrl" alt="TechStack" /></figure>
+		<figure class="hover:cursor-pointer" @click="searchTech()"><img :src="imageUrl" alt="TechStack" /></figure>
 		<div class="card-body">
-		  <h2 class="card-title">{{name}}</h2>
+		  <h2 class="card-title hover:cursor-pointer" @click="searchTech()">{{name}}</h2>
 		  <p>{{ area }}</p>
 		  <div class="card-actions justify-end">
 			<button class="btn btn-error" @click="deleteTech">Delete</button>

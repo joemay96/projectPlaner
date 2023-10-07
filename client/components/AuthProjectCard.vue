@@ -18,9 +18,9 @@ const {id, title, description, motivation, workEstimation, techStack, tags} = pr
 		<div class="card-body">
 			<div class="flex flex-row justify-between">
 				<h2 class="text-2xl font-bold text-primary text-center hover:text-primary-focus hover:underline">{{ title }}</h2>
-				<!-- <button class="btn btn-error btn-small" @click="deleteProject()">
+				<div class="btn btn-error btn-small">
 					<Icon name="fluent:delete-48-regular" color="black" />
-				</button> -->
+				</div>
 			</div>
 			<!-- <div class="divider"><span class="font-bold">Description</span></div> -->
 		  <p>{{description}}</p>

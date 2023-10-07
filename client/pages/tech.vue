@@ -23,7 +23,7 @@ try {
 	<div class="flex justify-center">
 		<h1 class="text-4xl text-secondary font-extrabold pb-8">My Techstack</h1>
 	</div>
-	<div class="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 px-8 md:px-20 flex-1 justify-around">
+	<div class="grid grid-cols-1 xl:grid-cols-6 lg:grid-cols-3 sm:grid-cols-2 gap-4 px-8 md:px-20 flex-1 justify-around">
 		<template v-for="t in data" key="p.id">
 			<!--  An image path https://pocketbase.sharky.live/api/files/dngadhplinitltd/min84lwcz1uflh2/jsbjsxyBzhab_hvTlAvxbKa.png -->
 			<!-- @ts-ignore -->

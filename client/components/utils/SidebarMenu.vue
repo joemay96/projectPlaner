@@ -32,8 +32,15 @@ function closeSidebar() {
 				<div class="mt-16 w-40 mask mask-hexagon-2">
 					<img :src="imgUrl" class="mb-4"/>
 				</div>
-				<li><button class="btn btn-wide btn-secondary mb-10 pt-4" onclick="add_project_modal.showModal()" @click="closeSidebar()">Create new Project</button></li>
+
+				<p class="mb-2 font-bold text-xl">{{user.username}}</p>
 				<p class="mb-10">{{user.email}}</p>
+				
+				<li><button class="btn btn-wide btn-secondary mb-16 pt-4" onclick="add_project_modal.showModal()" @click="closeSidebar()">Create new Project</button></li>
+				
+				<!-- <p class="mb-2 font-bold text-xl">{{user.username}}</p>
+				<p class="mb-10">{{user.email}}</p> -->
+				
 				<!-- Sidebar content here -->
 				<li><extensionsSidebarNuxtLink to ="/" class="btn btn-wide mb-1 btn-ghost pt-4" @click="closeSidebar()" >Dashboard</extensionsSidebarNuxtLink></li>
 				<li><extensionsSidebarNuxtLink to="/tech" class="btn-ghost btn btn-wide pt-4 mb-1" @click="closeSidebar()">

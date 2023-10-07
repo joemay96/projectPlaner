@@ -49,6 +49,9 @@ async function saveTech() {
 <template>
 <dialog id="add_tech_modal" class="modal">
   <div class="modal-box w-11/12 max-w-2xl">
+	<form method="dialog">
+		<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button> 
+	</form>
     <h3 class="font-bold text-xl">Tech</h3>
     <p class="pt-4">Add a new Technology to your Stack. 
 		<div class="tooltip tooltip-bottom tooltip-primary" data-tip="
