@@ -47,14 +47,14 @@ function transmitData() {
 			<select class="select select-bordered" @change="addTech()" v-model="techInput">
 				<option disabled selected>Pick option</option>
 				<template v-for="t, index in data" :key="index">
-				  <option>{{ t.name }}</option>
+				  <option :value="t">{{ t.name }}</option>
 				</template>
 			</select>
 		</div>
 		<div class="flex flex-row justify-center pt-4">
 			<template id="tagField" v-for="t, index in selectedTech" :key="index">
 				<div class="badge gap-2 badge-lg">
-					{{ t }}
+					{{ t.name }}
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current hover:cursor-pointer" @click="rmTag(index)">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 					</svg>

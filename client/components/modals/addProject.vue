@@ -48,11 +48,27 @@ function resetProject() {
 }
 
 function techDataChange(techData: [String]) {
-	newProject.techStack = techData;
+	try {
+		// newProject.techStack = techData;
+		const d = JSON.parse(JSON.stringify(techData))
+		let a = []
+		d.forEach(o => {
+			a.push(o.id)
+		})
+		newProject.techStack = a
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 function tagDataChange(tagData: [String]) {
-	newProject.tags = tagData;
+	try {
+		// newProject.techStack = tagData;
+		const d = JSON.parse(JSON.stringify(tagData))
+		newProject.tags = d.toString()
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 async function saveProject() {
@@ -66,6 +82,8 @@ async function saveProject() {
 		return
 	}
 
+	console.log(newProject)
+
 	try {
 		const res = await client.createProject(newProject)
 		// add_project_model.close();
@@ -74,7 +92,7 @@ async function saveProject() {
 		console.log(res);
 		resetProject();
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 		//TODO: response to user that error happend
 	}
 }
