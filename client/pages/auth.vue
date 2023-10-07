@@ -16,7 +16,7 @@ definePageMeta({
 	<div class="grid grid-flow-col gap-4 px-20 flex-1 justify-around">
 		<template v-for="p in projects" key="p.id">
 			<!-- @ts-ignore -->
-			<ProjectCard :id="p.id" :title="p.title" :description="p.description" :motivation="p.motivation" :workEstimation="p.workEstimation" :techStack="p.techStack" :tags="p.tags" />
+			<AuthProjectCard :id="p.id" :title="p.title" :description="p.description" :motivation="p.motivation" :workEstimation="p.workEstimation" :techStack="p.techStack" :tags="p.tags" :auth="true" />
 		</template>
 	</div>
 	<div class="mb-20"></div>

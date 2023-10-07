@@ -45,13 +45,13 @@ async function login() {
 				<label class="label">
 				<span class="label-text">Email</span>
 				</label>
-				<input type="text" placeholder="email" class="input input-bordered w-full max-w-2xl" v-model="email" />
+				<input type="text" placeholder="email" class="input input-bordered w-full max-w-2xl" v-model="email" autocomplete="on" />
 			</div>
 			<div class="form-control w-full max-w-2xl">
 				<label class="label">
 				<span class="label-text">Password</span>
 				</label>
-				<input type="password" placeholder="password" class="input input-bordered w-full max-w-2xl" v-model="password" />
+				<input type="password" placeholder="password" class="input input-bordered w-full max-w-2xl" v-model="password" autocomplete="on" />
 			</div>
 			<!-- if there is a button in form, it will close the modal -->
 			<button type="button" class="btn btn-primary mt-2" @click="login()">Login</button>
