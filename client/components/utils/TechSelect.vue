@@ -12,7 +12,6 @@ let data: any = [];
 
 try {
 	data = await client.getTechList();
-	data = data.items
 } catch (error) {
 	// TODO: report error to user
 	console.log(error)
