@@ -73,7 +73,7 @@ export default class PBClient {
 	}
 
 	async getTechList() {
-		return await this.client.collection('tech').getList(1, 20, {
+		return await this.client.collection('tech').getFullList(200, {
 			// filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
 		});
 	}

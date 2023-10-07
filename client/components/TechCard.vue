@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const props = defineProps({
-	name: String
+	name: String,
+	id: String
 })
-const {name} = props;
+const {name, id} = props;
 
 const picValue = Math.floor(Math.random() * 4 + 1)
 
