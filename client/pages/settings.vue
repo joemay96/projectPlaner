@@ -6,13 +6,15 @@ const colorMode = useColorMode();
 definePageMeta({
   middleware: [
     'auth',
+	'refresh-auth'
   ],
 });
 
 const user = client.getUserLS();
+const oldUsername = user.username
 
 let updatedUser = {
-	username: user.username,
+	username: "",
 	password: "",
 	newPassword: "",
 	email: user.email,
@@ -44,7 +46,9 @@ if(user) {
 
 async function updateUserData() {
 	try {
-		await client.updateUser(updatedUser)
+		const res = await client.updateUser(updatedUser)
+		console.log(res)
+		window.location.reload()
 	} catch (error) {
 		console.error(error)
 	}
@@ -74,11 +78,11 @@ const ProfileIcon = h(Icon, { name: 'mdi:account-circle', size: iconSize, color:
 	<div class="flex flex-col items-center mb-12">
 		<div class="flex items-center flex-col">
 			<div class="w-56 sm:w-96 mt-12 flex justify-center mask mask-squircle">
-				<img :src="imgUrl" class="" id="profileImage" />
+				<img :src="imgUrl" class="w-56" id="profileImage" />
 			</div>
 			<label
 				for="changeProfilePicture" 
-				class="self-end hover:cursor-pointer z-10 relative left-4 bottom-28 sm:bottom-48 pl-0 ml-0"
+				class="self-end hover:cursor-pointer z-10 relative bottom-8 sm:bottom-20 pl-0 ml-0"
 				@click="changeProfilePicture"
 			>
 				<ProfileIcon />
@@ -104,7 +108,7 @@ const ProfileIcon = h(Icon, { name: 'mdi:account-circle', size: iconSize, color:
 				<p class="mb-1"><span>Current Username: </span>
 					{{ user.username }}
 				</p>
-				<input type="text" placeholder="Change username" class="input input-bordered w-full max-w-lg" v-model="updatedUser.username" />
+				<input type="text" :placeholder="oldUsername" class="input input-bordered w-full max-w-lg" v-model="updatedUser.username" />
 			</div>
 			<!-- <div class="form-control w-full max-w-lg mb-4">
 				<p class="mb-1"><span>Current email:</span>

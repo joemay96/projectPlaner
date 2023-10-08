@@ -156,7 +156,7 @@ export default class PBClient {
 			reauthenticate = true;
 		}
 
-		// CHange Profileimage
+		// Change Profileimage
 		if(newUser.profileImage) {
 			try {
 			 	const res = await this.client.collection('users').update(oldUser.id, {"avatar": newUser.profileImage});
@@ -172,7 +172,7 @@ export default class PBClient {
 				const data = JSON.stringify(updateUser)
 				const res = await this.client.collection('users').update(oldUser.id, data);
 				await this.refetchUser(oldUser.id)
-				console.log(res)
+				return res
 			} catch(err) {
 				console.error("Error updating Userdata: ", err)
 			}
