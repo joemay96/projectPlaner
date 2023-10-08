@@ -29,7 +29,7 @@ function closeSidebar() {
 		<div class="drawer-side z-50">
 			<label for="sidebar" class="drawer-overlay"></label>
 			<ul class="flex items-center menu h-screen overflow-y-auto w-80 bg-base-100 text-base-content mb-1">
-				<div class="mt-16 w-40 mask mask-hexagon-2">
+				<div class="mt-16 w-40 mask mask-hexagon-2 flex justify-center">
 					<img :src="imgUrl" class="mb-4"/>
 				</div>
 

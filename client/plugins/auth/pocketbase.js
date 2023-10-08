@@ -130,10 +130,14 @@ export default class PBClient {
 		let reauthenticate = false;
 		const oldUser = this.getUserLS();
 		let updateUser = {};
+
+		// Change username
 		if(newUser.username != oldUser.username && newUser.username != "") {
 			updateUser.username = newUser.username
 		}
-		if(newUser.email != oldUser.email && newUser.email != "") {
+
+		// TODO: change of email not possible for now
+		// if(newUser.email != oldUser.email && newUser.email != "") {
 			// updateUser.email = newUser.email;
 			// try {
 			// 	await this.client.collection('users').authWithPassword(oldUser.email, )
@@ -142,7 +146,9 @@ export default class PBClient {
 			// } catch(err) {
 			// 	console.error("Error changing email for user:", err);
 			// }
-		}
+		// }
+
+		// Change Password
 		if(newUser.newPassword != "") {
 			updateUser.password = newUser.newPassword
 			updateUser.passwordConfirm = newUser.newPassword
@@ -150,8 +156,8 @@ export default class PBClient {
 			reauthenticate = true;
 		}
 
+		// CHange Profileimage
 		if(newUser.profileImage) {
-			console.log("kommt hier rein?!")
 			try {
 			 	const res = await this.client.collection('users').update(oldUser.id, {"avatar": newUser.profileImage});
 			 	console.log(res)
@@ -165,14 +171,8 @@ export default class PBClient {
 			try {
 				const data = JSON.stringify(updateUser)
 				const res = await this.client.collection('users').update(oldUser.id, data);
-				console.log(oldUser)
-				let refetchedUser
-				if(reauthenticate) {
-					refetchedUser = await this.authenticate(oldUser.email, updateUser.password)
-					this.createUserLS(refetchedUser)
-				} else {
-					await this.refetchUser(oldUser.id)
-				}
+				await this.refetchUser(oldUser.id)
+				console.log(res)
 			} catch(err) {
 				console.error("Error updating Userdata: ", err)
 			}
