@@ -21,16 +21,19 @@ if(process.client) {
 
 <template>
     <div class="flex items-center md:justify-between justify-center my-1">
-      <div v-if="user">
+      <div v-if="user" class="hidden md:flex">
         <UtilsSidebarMenu />
       </div>
       <div v-else>
         <p class="text-xl text-accent font-bold mx-4">Start your projects now!</p>
       </div>
-      <div class="hidden md:block">
+      <div class="">
         <ul class="menu menu-horizontal mr-4">
           <template v-if="!user">
             <authLogin />
+          </template>
+          <template v-else>
+            <Parentmenu />
           </template>
           <li>
             <label class="swap swap-rotate">
