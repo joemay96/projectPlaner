@@ -11,10 +11,11 @@ definePageMeta({
 
 const user = client.getUserLS();
 
-let updateUser = {
-	username: "",
+let updatedUser = {
+	username: user.username,
 	password: "",
-	email: "",
+	newPassword: "",
+	email: user.email,
 	profileImage: null,
 }
 
@@ -22,19 +23,30 @@ function profilePictureChange(e: any) {
   var files = e.target.files || e.dataTransfer.files;
   if (!files.length)
     return;
-  updateUser.profileImage = files[0];
+  updatedUser.profileImage = files[0];
+  updateProfilePicture(files[0]);
+}
+
+//create Reader to update the profile Picture
+function updateProfilePicture(file) {
+	let reader = new FileReader();
+	reader.onload = function(e) {
+		const profileImage = document.getElementById("profileImage")
+		profileImage.src = e.target.result;
+	}
+	reader.readAsDataURL(file)
 }
 
 let imgUrl = "";
 if(user) {
-  imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.imagePath}`;
+  imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.avatar}`;
 }
 
 async function updateUserData() {
 	try {
-		// const res = await client.
+		await client.updateUser(updatedUser)
 	} catch (error) {
-		
+		console.error(error)
 	}
 }
 
@@ -61,8 +73,8 @@ const ProfileIcon = h(Icon, { name: 'mdi:account-circle', size: iconSize, color:
 	</div>
 	<div class="flex flex-col items-center mb-12">
 		<div class="flex items-center flex-col">
-			<div class="w-56 sm:w-96 mask mask-hexagon-2 mt-12">
-				<img :src="imgUrl" class=""/>
+			<div class="w-56 sm:w-96 mt-12 flex justify-center mask mask-squircle">
+				<img :src="imgUrl" class="" id="profileImage" />
 			</div>
 			<label
 				for="changeProfilePicture" 
@@ -75,29 +87,31 @@ const ProfileIcon = h(Icon, { name: 'mdi:account-circle', size: iconSize, color:
 		</div>
 		<div class="w-full flex flex-col items-center mt-6 px-2">
 			<div class="form-control w-full max-w-lg mb-4">
+				<p >Your password is needed to change settings for your profile.</p>
+				<p class="mb-4">Your registered email is: <span class="font-bold">{{ user.email }}</span></p>
+				<label class="label">
+				<span class="label-text">Old Password</span>
+				</label>
+				<input type="password" placeholder="********" class="input input-bordered w-full max-w-lg" v-model="updatedUser.password" />
+			</div>
+			<div class="form-control w-full max-w-lg mb-4">
 				<label class="label">
 				<span class="label-text">Change Password</span>
 				</label>
-				<input type="password" placeholder="********" class="input input-bordered w-full max-w-lg" v-model="updateUser.password" />
+				<input type="password" placeholder="********" class="input input-bordered w-full max-w-lg" v-model="updatedUser.newPassword" />
 			</div>
 			<div class="form-control w-full max-w-lg mb-4">
 				<p class="mb-1"><span>Current Username: </span>
 					{{ user.username }}
 				</p>
-				<!-- <label class="label"> -->
-				<!-- <span class="label-text">Change Username</span> -->
-				<!-- </label> -->
-				<input type="text" placeholder="Change username" class="input input-bordered w-full max-w-lg" v-model="updateUser.username" />
+				<input type="text" placeholder="Change username" class="input input-bordered w-full max-w-lg" v-model="updatedUser.username" />
 			</div>
-			<div class="form-control w-full max-w-lg mb-4">
+			<!-- <div class="form-control w-full max-w-lg mb-4">
 				<p class="mb-1"><span>Current email:</span>
 				{{user.email}}
 				</p>
-				<!-- <label class="label"> -->
-				<!-- <span class="label-text">Change email</span> -->
-				<!-- </label> -->
-				<input type="email" placeholder="Change email" class="input input-bordered w-full max-w-lg" v-model="updateUser.email" />
-			</div>
+				<input type="email" placeholder="Change email" class="input input-bordered w-full max-w-lg" v-model="updatedUser.email" />
+			</div> -->
 			<button class="btn btn-success max-w-xs" @click="updateUserData">Save</button>
 		</div>
 	</div>

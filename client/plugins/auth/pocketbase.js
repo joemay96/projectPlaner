@@ -39,7 +39,7 @@ export default class PBClient {
 			name: user.name,
 			email: user.email,
 			username: user.username,
-			imagePath: user.imagePath,
+			avatar: user.avatar,
 		}))
 	}
 
@@ -56,8 +56,19 @@ export default class PBClient {
 				name: "",
 				email: "",
 				username: "",
-				imagePath: "",
+				avatar: "",
 			}
+		}
+	}
+
+	async refetchUser(id) {
+		try {
+			console.log(id)
+			const res = await this.client.collection('users').getOne(id);
+			console.log(res)
+			this.createUserLS(res)
+		} catch(err) {
+			console.error("Error fetching and refreshing Userdata: ", err)
 		}
 	}
 
@@ -74,7 +85,6 @@ export default class PBClient {
 
 	async getTechList() {
 		return await this.client.collection('tech').getFullList(200, {
-			// filter: 'created >= "2022-01-01 00:00:00" && someField1 != someField2',
 		});
 	}
 
@@ -112,6 +122,61 @@ export default class PBClient {
 
 	async deleteProjectById (id) {
 		return await this.client.collection('projects').delete(id);
+	}
+
+	// User routes
+
+	async updateUser(newUser) {
+		let reauthenticate = false;
+		const oldUser = this.getUserLS();
+		let updateUser = {};
+		if(newUser.username != oldUser.username && newUser.username != "") {
+			updateUser.username = newUser.username
+		}
+		if(newUser.email != oldUser.email && newUser.email != "") {
+			// updateUser.email = newUser.email;
+			// try {
+			// 	await this.client.collection('users').authWithPassword(oldUser.email, )
+			// 	const res = await this.client.collection('users').requestEmailChange(newUser.email, newUser.password);
+			// 	console.log(res)
+			// } catch(err) {
+			// 	console.error("Error changing email for user:", err);
+			// }
+		}
+		if(newUser.newPassword != "") {
+			updateUser.password = newUser.newPassword
+			updateUser.passwordConfirm = newUser.newPassword
+			updateUser.oldPassword = newUser.password
+			reauthenticate = true;
+		}
+
+		if(newUser.profileImage) {
+			console.log("kommt hier rein?!")
+			try {
+			 	const res = await this.client.collection('users').update(oldUser.id, {"avatar": newUser.profileImage});
+			 	console.log(res)
+				this.refetchUser(oldUser.id)
+			} catch(err) {
+			 	console.error("Error changing profile picture:", err);
+			}
+		}
+
+		if(updateUser) {
+			try {
+				const data = JSON.stringify(updateUser)
+				const res = await this.client.collection('users').update(oldUser.id, data);
+				console.log(oldUser)
+				let refetchedUser
+				if(reauthenticate) {
+					refetchedUser = await this.authenticate(oldUser.email, updateUser.password)
+					this.createUserLS(refetchedUser)
+				} else {
+					await this.refetchUser(oldUser.id)
+				}
+			} catch(err) {
+				console.error("Error updating Userdata: ", err)
+			}
+		}
 	}
 }
 

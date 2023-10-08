@@ -12,6 +12,7 @@ const props = defineProps({
 	fullTechList: Array,
 })
 
+
 const {id, title, description, motivation, workEstimation, techStack, tags, fullTechList} = props;
 
 const techList: any = []

@@ -12,10 +12,10 @@ let projectData: any = [];
 let techData: any = [];
 
 try {
-	let data = await client.getProjectList();
+	const data = await client.getProjectList();
 	projectData = data.items
-	data = await client.getTechList();
-	techData = data;
+	const tData = await client.getTechList();
+	techData = tData;
 
 } catch (error) {
 	// TODO: report error to user

@@ -6,7 +6,7 @@ const router = useRouter();
 const user = client.getUserLS();
 let imgUrl = "";
 if(user) {
-  imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.imagePath}`;
+  imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${user.avatar}`;
 }
 
 const logout = async () => {

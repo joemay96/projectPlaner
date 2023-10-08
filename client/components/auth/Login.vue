@@ -21,7 +21,7 @@ async function login() {
 			name: authData.record.name,
 			email: authData.record.email,
 			username: authData.record.username,
-			imagePath: authData.record.avatar,
+			avatar: authData.record.avatar,
 		})
 		login_modal.close()
 		await navigateTo("/")
