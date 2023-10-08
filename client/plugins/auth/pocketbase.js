@@ -112,7 +112,7 @@ export default class PBClient {
 		});
 	}
 
-	async getprojectById (id) {
+	async getProjectById (id) {
 		return await this.client.collection('projects').getOne(id)
 	}
 
