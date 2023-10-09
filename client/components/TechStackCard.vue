@@ -56,7 +56,7 @@ function editTechEmit() {
 				<img :src="imageUrl" alt="TechStack"/>
 			</figure>
 		</div> -->
-		<figure class="hover:cursor-pointer" @click="searchTech()">
+		<figure class="" @click="searchTech()">
 			<img :src="imageUrl" alt="TechStack"/>
 		</figure>
 		<div class="card-body">

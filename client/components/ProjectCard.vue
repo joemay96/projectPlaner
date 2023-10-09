@@ -38,30 +38,31 @@ async function deleteProject() {
 		<!-- <figure><img src="../assets/images/tech/1.jpg" alt="Movie"/></figure> -->
 		<div class="card-body">
 			<div class="flex flex-row justify-between">
-				<h2 class="text-2xl font-bold text-primary text-center hover:text-primary-focus hover:underline"><NuxtLink :to="`/project/${id}`">{{ title }}</NuxtLink></h2>
-				<button class="btn btn-error p-2" @click="deleteProject()">
-					<Icon name="mdi:delete" color="white" class="font-bold" size="28px" />
-				</button>
+				<div class="">
+					<h2 class="text-2xl font-bold text-primary hover:text-primary-focus hover:underline mb-4"><NuxtLink :to="`/project/${id}`">{{ title }}</NuxtLink>
+					</h2>
+					<p class=""><span class="cont-bold">Work estimation: </span>{{workEstimation}}</p>
+				</div>
+				<div class="flex flex-col gap-1 justify-center">
+					<template v-for="tag, index in tagList" :key="index">
+						<div v-if="tag != ''" class="badge badge-md badge-accent">{{tag}}</div>
+					</template>
+				  </div>
 			</div>
-			<!-- <div class="divider"><span class="font-bold">Description</span></div> -->
+			<div class="divider mb-0"><span class="font-bold">Description</span></div>
 		  <p>{{description}}</p>
-		  <div class="divider"><span class="font-bold">Motivation</span></div> 
+		  <div class="divider mb-0"><span class="font-bold">Motivation</span></div> 
 		  <p> {{motivation}}</p>
-		  <!-- <div class="divider"></div>  -->
-		  <p><span class="font-bold">Work estimation:</span> {{workEstimation}}</p>
-		  <h2 class="text-lg font-bold">Techstack:</h2>
-		  <div class="flex flex-row gap-2 justify-center pt-[-12px]">
+		  <div class="divider mb-1"><span class="font-bold">Tech Stack</span></div> 
+		  <div class="flex flex-row gap-2 justify-center">
 			<template v-for="t in techList" :key="t" class="flex flex-col">
 				<TechCard :name="t.name" :id="t.id" />
 			</template>
 		  </div>
-		  <div class="flex flex-row gap-2 mt-2 justify-center">
-			<template v-for="tag, index in tagList" :key="index">
-				<div class="badge badge-md badge-primary">{{tag}}</div>
-			</template>
-		  </div>
 		  <!-- <div class="card-actions justify-end">
-			<button class="btn btn-primary">Inspect</button>
+			<button class="btn btn-error p-2" @click="deleteProject()">
+				<Icon name="mdi:delete" color="white" class="font-bold" size="28px" />
+			</button>
 		  </div> -->
 		</div>
 	  </div>
