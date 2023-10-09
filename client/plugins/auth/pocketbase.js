@@ -93,7 +93,22 @@ export default class PBClient {
 	}
 
 	async updateTechById (id, updatedTech) {
-		return await this.client.collection('tech').update(id, updatedTech);
+		if(typeof updatedTech.image === "string") {
+			return await this.client.collection('tech').update(id, {
+				userid: updatedTech.userid,
+				name: updatedTech.name,
+				area: updatedTech.area,
+				url: updatedTech.url,
+			});
+		} else {
+			return await this.client.collection('tech').update(id, {
+				userid: updatedTech.userid,
+				name: updatedTech.name,
+				area: updatedTech.area,
+				url: updatedTech.url,
+				image: updatedTech.image
+			});
+		}
 	}
 
 	async deleteTechById (id) {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// import {watch} from "vue"
+import client from "~/plugins/auth/client.js"
+import {isValidHttpUrl} from "~/plugins/utils/valFuncs.js"
 
 const props = defineProps({
 	id: ref(),
@@ -14,14 +15,11 @@ const {id, userid, name, area, imagePath, url} = props;
 const refProps = toRefs(props);
 
 watch(refProps.id, (newVal, oldVal) => {
-	console.log("Id: ", refProps.id.value, "name: ", refProps.name.value, "area: ", refProps.area.value, "imagePath: ", refProps.imagePath.value, "url: ", refProps.url.value)
-
 	newTech.id = refProps.id.value;
 	newTech.name = refProps.name.value;
 	newTech.area = refProps.area.value;
 	newTech.image = refProps.imagePath.value;
 	newTech.url = refProps.url.value;
-
 }, {deep:true})
 
 type tech =  {
@@ -46,6 +44,16 @@ function onFileChange(e: any) {
   if (!files.length)
     return;
   newTech.image = files[0];
+  updatePicture(files[0]);
+}
+
+function updatePicture(file) {
+	let reader = new FileReader();
+	reader.onload = function(e) {
+		const profileImage = document.getElementById("techImage")
+		profileImage.src = e.target.result;
+	}
+	reader.readAsDataURL(file)
 }
 
 // save the data to pocketbase
@@ -55,14 +63,19 @@ async function updateTech() {
 		console.error("Name can not be empty")
 		return
 	}
+
+	if(!isValidHttpUrl(newTech.url) && newTech.url !== "") {
+		console.error("Not a valid url")
+		return
+	}
 	
 	try {
-		const res = await client.updateTechById(id, newTech);
+		const res = await client.updateTechById(newTech.id, newTech);
 		edit_tech_modal.close()
 		// TODO: send a refetch event to /tech
 		console.log(res);
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 	}
 }
 
@@ -70,7 +83,7 @@ async function updateTech() {
 
 <template>
 <dialog id="edit_tech_modal" class="modal">
-	<div class="modal-box w-11/12 max-w-2xl">
+	<div class="modal-box w-11/12 max-w-xl">
 		<form method="dialog">
 			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button> 
 		</form>
@@ -96,9 +109,12 @@ async function updateTech() {
 					</label>
 					<input type="url" placeholder="https://projectplaner.io/" class="input input-bordered w-full max-w-2xl" v-model="newTech.url" />
 				</div>
+				<div class="w-full flex justify-center items-center mt-4">
+					<img :src="newTech.image" class="w-56 rounded-xl" id="techImage" />
+				</div>
 				<div class="form-control">
 					<label class="label pb-0">
-						<span class="label-text">Photo</span>
+						<span class="label-text">Change Picture</span>
 					</label>
 					<input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs my-4" v-on:change="onFileChange" />
 				</div> 

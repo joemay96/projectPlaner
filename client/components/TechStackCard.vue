@@ -14,7 +14,7 @@ const props = defineProps({
 const {id, name, area, imagePath, url=""} = props;
 
 let imageUrl = ""
-if(imagePath && imagePath != "") {
+if(imagePath && imagePath != "" && imagePath.split("/").at(-1) != "") {
 	imageUrl = imagePath
 } else {
 	imageUrl =  new URL("../assets/images/tech/default.jpg", import.meta.url).href
@@ -36,11 +36,6 @@ function searchTech() {
 	}
 }
 
-// function showModal() {
-// 	console.log(showModal)
-// 	edit_tech_modal.showModal()
-// }
-
 function editTechEmit() {
 	emit("editTech", {
 		id,
@@ -59,6 +54,7 @@ function editTechEmit() {
 		<div class="card-body">
 		  <h2 class="card-title hover:cursor-pointer" @click="searchTech()">{{name}}</h2>
 		  <p>{{ area }}</p>
+		  <a v-if="url" :href="{url}" class="link link-secondary">{{ url }}</a>
 		  <div class="card-actions justify-between">
 			<button class="btn btn-warning" @click="editTechEmit">
 				<Icon size="24px" name="mdi:pen" color="white" />
