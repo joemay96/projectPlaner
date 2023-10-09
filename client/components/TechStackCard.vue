@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import client from "~/plugins/auth/client"
 
+const emit = defineEmits(["editTech"])
+
 const props = defineProps({
 	id: String,
 	name: String,
 	area: String,
 	imagePath: String,
+	url: String,
 })
 
-const {id, name, area, imagePath} = props;
+const {id, name, area, imagePath, url=""} = props;
 
 let imageUrl = ""
 if(imagePath && imagePath != "") {
@@ -26,7 +29,26 @@ function deleteTech() {
 }
 
 function searchTech() {
-	window.open(`https://duckduckgo.com/?q=${name}&ia=web`, '_blank').focus();
+	if(url && url != "") {
+		window.open(url, '_blank').focus();
+	} else {
+		window.open(`https://duckduckgo.com/?q=${name}&ia=web`, '_blank').focus();
+	}
+}
+
+// function showModal() {
+// 	console.log(showModal)
+// 	edit_tech_modal.showModal()
+// }
+
+function editTechEmit() {
+	emit("editTech", {
+		id,
+		name,
+		area,
+		imagePath,
+		url,
+	})
 }
 
 </script>
@@ -37,9 +59,15 @@ function searchTech() {
 		<div class="card-body">
 		  <h2 class="card-title hover:cursor-pointer" @click="searchTech()">{{name}}</h2>
 		  <p>{{ area }}</p>
-		  <div class="card-actions justify-end">
-			<button class="btn btn-error" @click="deleteTech">Delete</button>
+		  <div class="card-actions justify-between">
+			<button class="btn btn-warning" @click="editTechEmit">
+				<Icon size="24px" name="mdi:pen" color="white" />
+			</button>
+			<button class="btn btn-error" @click="deleteTech">
+				<Icon size="24px" name="fluent:delete-48-regular" color="white" />
+			</button>
 		  </div>
 		</div>
-	  </div>
+	</div>
+	<!-- <ModalsEditTech :id="id" :name="name" :area="area" :imagePath="imagePath" :url="url" /> -->
 </template>

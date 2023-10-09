@@ -2,7 +2,6 @@
 // const route = useRoute();
 import client from "../../plugins/auth/client.js";
 import SidebarNuxtLink from "../extensions/SidebarNuxtLink";
-// import SidebarNuxtLink from "../extensions/SidebarNuxtLink";
 
 const user = client.getUserLS();
 let imgUrl = "";
@@ -36,7 +35,11 @@ function closeSidebar() {
 				<p class="mb-2 font-bold text-xl">{{user.username}}</p>
 				<p class="mb-10">{{user.email}}</p>
 				
-				<li><button class="btn btn-wide btn-secondary mb-16 pt-4" onclick="add_project_modal.showModal()" @click="closeSidebar()">Create new Project</button></li>
+				<li>
+					<button class="btn btn-wide btn-secondary mb-16 pt-4" onclick="add_project_modal.showModal()" @click="closeSidebar()">
+						Create new Project
+
+					</button></li>
 				
 				<!-- <p class="mb-2 font-bold text-xl">{{user.username}}</p>
 				<p class="mb-10">{{user.email}}</p> -->

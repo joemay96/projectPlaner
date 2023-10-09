@@ -8,6 +8,7 @@ type tech =  {
 	name: String,
 	area: String,
 	image: File | null,
+	url: String | undefined,
 }
 
 const user = client.getUserLS();
@@ -16,7 +17,8 @@ let newTech: tech = {
 	userid: user.id,
 	name: "",
 	area: "",
-	image: null
+	image: null,
+	url: "",
 }
 
 function onFileChange(e: any) {
@@ -74,6 +76,12 @@ async function saveTech() {
 				<span class="label-text">Area</span>
 				</label>
 				<input type="text" placeholder="Tech area e.p. Backend, Frontend etc." class="input input-bordered w-full max-w-2xl" v-model="newTech.area" />
+			</div>
+			<div class="form-control w-full max-w-2xl">
+				<label class="label">
+				<span class="label-text">Url to Techsite</span>
+				</label>
+				<input type="url" placeholder="https://aws.amazon.com/console/" class="input input-bordered w-full max-w-2xl" v-model="newTech.url" />
 			</div>
 			<div class="form-control">
 				<label class="label pb-0">
