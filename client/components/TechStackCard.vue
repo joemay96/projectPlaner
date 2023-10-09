@@ -30,6 +30,7 @@ function deleteTech() {
 
 function searchTech() {
 	if(url && url != "") {
+		console.log(url)
 		window.open(url, '_blank').focus();
 	} else {
 		window.open(`https://duckduckgo.com/?q=${name}&ia=web`, '_blank').focus();
@@ -50,10 +51,24 @@ function editTechEmit() {
 
 <template>
 	<div class="card card-compact max-w-md bg-base-100 shadow-xl">
-		<figure class="hover:cursor-pointer" @click="searchTech()"><img :src="imageUrl" alt="TechStack" /></figure>
+		<!-- <div v-if="url" class="tooltip tooltip-bottom tooltip-secondary" :data-tip="url">
+			<figure class="hover:cursor-pointer" @click="searchTech()">
+				<img :src="imageUrl" alt="TechStack"/>
+			</figure>
+		</div> -->
+		<figure class="hover:cursor-pointer" @click="searchTech()">
+			<img :src="imageUrl" alt="TechStack"/>
+		</figure>
 		<div class="card-body">
-		  <h2 class="card-title hover:cursor-pointer" @click="searchTech()">{{name}}</h2>
-		  <a v-if="url" :href="{url}" class="link link-secondary">{{ url }}</a>
+			<div v-if="url" class="tooltip tooltip-top tooltip-secondary" :data-tip="url">
+				<h2 class="card-title hover:cursor-pointer hover:text-secondary" @click="searchTech()">
+					{{name}}
+				</h2>
+			</div>
+			<h2 v-else class="card-title hover:cursor-pointer hover:text-secondary" @click="searchTech()">
+				{{name}}
+			</h2>
+		  <!-- <a v-if="url" :href="url" target="_blank" class="link link-secondary">{{ url }}</a> -->
 		  <p class="">{{ area }}</p>
 		  <div class="card-actions justify-between">
 			<button class="btn btn-warning" @click="editTechEmit">

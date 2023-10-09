@@ -87,7 +87,7 @@ async function updateTech() {
 		<form method="dialog">
 			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button> 
 		</form>
-		<h3 class="font-bold text-xl">Tech edit of <span class="text-accent">{{ refProps.name.value }}</span></h3>
+		<h3 class="font-bold text-xl">Tech edit of <span class="text-primary">{{ refProps.name.value }}</span></h3>
 		<div class="modal-action">
 		<!-- <form method="dialog"> -->
 			<div class="w-full flex flex-col">
