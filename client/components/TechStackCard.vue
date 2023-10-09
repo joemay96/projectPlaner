@@ -53,8 +53,8 @@ function editTechEmit() {
 		<figure class="hover:cursor-pointer" @click="searchTech()"><img :src="imageUrl" alt="TechStack" /></figure>
 		<div class="card-body">
 		  <h2 class="card-title hover:cursor-pointer" @click="searchTech()">{{name}}</h2>
-		  <p>{{ area }}</p>
 		  <a v-if="url" :href="{url}" class="link link-secondary">{{ url }}</a>
+		  <p class="">{{ area }}</p>
 		  <div class="card-actions justify-between">
 			<button class="btn btn-warning" @click="editTechEmit">
 				<Icon size="24px" name="mdi:pen" color="white" />
@@ -65,5 +65,4 @@ function editTechEmit() {
 		  </div>
 		</div>
 	</div>
-	<!-- <ModalsEditTech :id="id" :name="name" :area="area" :imagePath="imagePath" :url="url" /> -->
 </template>
