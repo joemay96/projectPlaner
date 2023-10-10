@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import client from "../../plugins/auth/client.js"
-// const route = useRoute();
 const colorMode = useColorMode();
 
 
@@ -25,7 +24,8 @@ if(process.client) {
         <UtilsSidebarMenu />
       </div>
       <div v-else>
-        <p class="text-xl text-accent font-bold mx-4">Start your projects now!</p>
+        <img src="/penguin/pic.png" alt="Logo" class="mx-4">
+        <!-- <p class="text-xl text-accent font-bold mx-4">Start your projects now!</p> -->
       </div>
       <div class="">
         <ul class="menu menu-horizontal mr-4">

@@ -61,11 +61,11 @@ function editTechEmit() {
 		</figure>
 		<div class="card-body">
 			<div v-if="url" class="tooltip tooltip-top tooltip-secondary" :data-tip="url">
-				<h2 class="card-title hover:cursor-pointer hover:text-secondary" @click="searchTech()">
+				<h2 class="card-title hover:cursor-pointer hover:text-secondary hover:underline" @click="searchTech()">
 					{{name}}
 				</h2>
 			</div>
-			<h2 v-else class="card-title hover:cursor-pointer hover:text-secondary" @click="searchTech()">
+			<h2 v-else class="card-title hover:cursor-pointer hover:text-secondary hover:underline" @click="searchTech()">
 				{{name}}
 			</h2>
 		  <!-- <a v-if="url" :href="url" target="_blank" class="link link-secondary">{{ url }}</a> -->
