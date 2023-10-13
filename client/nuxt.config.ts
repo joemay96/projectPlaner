@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-//   target: 'static',
+//   target: 'static', // -> definetly static, when that is possible. 
   ssr: false,
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', 'nuxt-icon', '@formkit/auto-animate/nuxt'],
   // tailwindcss: {
