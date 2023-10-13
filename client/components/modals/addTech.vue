@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import client from '~/plugins/auth/client';
+// alternatively, you can also use it here
+const { $createSuccessAlert, $createErrorAlert } = useNuxtApp()
 
 // TODO: tech is not selectable, when already selected
 
@@ -39,9 +41,11 @@ async function saveTech() {
 	try {
 		const res = await client.createTech(newTech);
 		add_tech_modal.close()
+		$createSuccessAlert('Tech created successful');
 		// TODO: send a refetch event to /tech
 		console.log(res);
 	} catch (error) {
+		$createErrorAlert('Tech create failed to error');
 		console.log(error)
 	}
 }
