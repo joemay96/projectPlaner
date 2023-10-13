@@ -35,15 +35,13 @@ if (tags != '') {
     tagList = tags.split(',');
 }
 
-const createdDate = new Date(created);
-const createdDateString = `${createdDate.getUTCDate()}-${
-    createdDate.getUTCMonth() + 1
-}-${createdDate.getUTCFullYear()}`;
+const createdDateString = `${created.getUTCDate()}-${
+    created.getUTCMonth() + 1
+}-${created.getUTCFullYear()}`;
 
-const updatedDate = new Date(updated);
-const updatedDateString = `${updatedDate.getUTCDate()}-${
-    updatedDate.getUTCMonth() + 1
-}-${updatedDate.getUTCFullYear()}`;
+const updatedDateString = `${updated.getUTCDate()}-${
+    updated.getUTCMonth() + 1
+}-${updated.getUTCFullYear()}`;
 
 const techList: any = [];
 techStack.forEach(techId => {
@@ -56,6 +54,10 @@ function editButton() {
 
 function deleteButton() {
     console.log('Delete Button pressed');
+}
+
+function openMarkdownEditor() {
+    console.log('Add Notes Button pressed');
 }
 </script>
 
@@ -109,13 +111,18 @@ function deleteButton() {
                     </div>
                 </div>
             </div>
-            <div class="card-actions justify-end">
-                <button class="btn btn-warning" @click="editButton">
-                    Edit
-                </button>
-                <button class="btn btn-error" @click="deleteButton">
-                    Delete
-                </button>
+            <div class="card-actions justify-between mt-8">
+                <!-- <button class="btn btn-secondary" @click="openMarkdownEditor">
+                    Add Notes
+                </button> -->
+                <div class="flex gap-2">
+                    <button class="btn btn-warning" @click="editButton">
+                        Edit
+                    </button>
+                    <button class="btn btn-error" @click="deleteButton">
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>

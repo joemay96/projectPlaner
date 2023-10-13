@@ -24,8 +24,8 @@ console.log(pj);
             :tags="pj.tags"
             :techStack="pj.techStack"
             :fullTechList="fullTechList"
-            :created="pj.created"
-            :updated="pj.updated"
+            :created="new Date(pj.created)"
+            :updated="new Date(pj.updated)"
         />
         <!-- <h1>Project Template ID</h1>
         <div class="divider"></div>
