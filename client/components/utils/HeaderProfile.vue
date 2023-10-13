@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // Habe im Moment kein Client modul
 import client from '../../plugins/auth/client.js';
+const { $createSuccessAlert } = useNuxtApp();
 const router = useRouter();
 
 const user = client.getUserLS();
@@ -12,7 +13,7 @@ if (user) {
 }
 
 const logout = async () => {
-    createSuccessAlert('Logout successful');
+    $createSuccessAlert('Logout successful');
     await client.logout();
     await navigateTo('/auth');
 };
