@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import client from '~/plugins/auth/client.js';
+const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
 import { Icon } from '#components';
 const colorMode = useColorMode();
 
@@ -45,9 +46,11 @@ if (user) {
 async function updateUserData() {
     try {
         const res = await client.updateUser(updatedUser);
+        $createSuccessAlert('Information updated');
         console.log(res);
         window.location.reload();
     } catch (error) {
+        $createErrorAlert('Could not update information');
         console.error(error);
     }
 }
