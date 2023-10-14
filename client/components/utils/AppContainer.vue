@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Everything for alerts on the whole site
 const {
     $resetSuccessAlert,
     $resetErrorAlert,

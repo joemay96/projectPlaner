@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import client from '../../plugins/auth/client.js';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $updateUserStatus } =
+    useNuxtApp();
 
 const router = useRouter();
 
@@ -9,15 +10,13 @@ const password = ref('');
 
 async function login() {
     const authData = await client.authenticate(email.value, password.value);
-    console.log(authData);
     if (authData.status >= 400 && authData.status <= 499) {
         // throw alert - failed login
-        console.log('FAILED!!!');
+        console.log('Failed login');
         $createErrorAlert('Wrong username or password');
     }
     if (authData.token) {
         //successful login
-        console.log(authData.record);
         client.createUserLS({
             id: authData.record.id,
             name: authData.record.name,
@@ -26,6 +25,7 @@ async function login() {
             avatar: authData.record.avatar,
         });
         login_modal.close();
+        $updateUserStatus(true);
         await navigateTo('/');
         $createSuccessAlert('Welcome!');
     }

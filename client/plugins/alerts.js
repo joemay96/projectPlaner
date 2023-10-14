@@ -7,7 +7,6 @@ export default defineNuxtPlugin(nuxtApp => {
 	let showSuccessAlert = ref(false);
 
 	function createSuccessAlert(msg) {
-		console.log('create alert');
 		alertMessage.value = msg;
 		showSuccessAlert.value = true;
 	}

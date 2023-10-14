@@ -3,7 +3,7 @@ import client from '~/plugins/auth/client.js';
 const route = useRoute();
 
 definePageMeta({
-    middleware: ['auth', 'refresh-auth'],
+    middleware: ['auth'],
 });
 
 const projectId = route.params.id;

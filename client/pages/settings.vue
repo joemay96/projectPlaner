@@ -5,7 +5,7 @@ import { Icon } from '#components';
 const colorMode = useColorMode();
 
 definePageMeta({
-    middleware: ['auth', 'refresh-auth'],
+    middleware: ['auth'],
 });
 
 const user = client.getUserLS();
