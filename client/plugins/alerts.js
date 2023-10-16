@@ -12,7 +12,6 @@ export default defineNuxtPlugin(nuxtApp => {
 	}
 
 	function createErrorAlert(msg) {
-		console.log('create alert');
 		alertMessage.value = msg;
 		showErrorAlert.value = true;
 	}

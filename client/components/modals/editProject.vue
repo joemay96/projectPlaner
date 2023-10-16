@@ -78,12 +78,10 @@ async function editProject() {
         return;
     }
 
-    console.log(updateProject);
-
     try {
         const res = await client.updateProjectById(
-            updateProject,
             updateProject.id,
+            updateProject,
         );
         // @ts-ignore
         edit_project_modal.close();

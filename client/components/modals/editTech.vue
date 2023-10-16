@@ -102,7 +102,6 @@ async function updateTech() {
                 <span class="text-primary">{{ refProps.name.value }}</span>
             </h3>
             <div class="modal-action">
-                <!-- <form method="dialog"> -->
                 <div class="w-full flex flex-col">
                     <div class="form-control w-full max-w-2xl">
                         <label class="label">
@@ -161,7 +160,6 @@ async function updateTech() {
                         Update
                     </button>
                 </div>
-                <!-- </form> -->
             </div>
         </div>
     </dialog>
