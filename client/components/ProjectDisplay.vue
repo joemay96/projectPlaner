@@ -32,7 +32,7 @@ const {
 
 let tagList: any = [];
 
-if (tags != '') {
+if (tags && tags != '') {
     tagList = tags.split(',');
 }
 
@@ -45,8 +45,8 @@ const updatedDateString = `${updated.getUTCDate()}-${
 }-${updated.getUTCFullYear()}`;
 
 const techList: any = [];
-techStack.forEach(techId => {
-    techList.push(fullTechList.filter(item => item.id === techId)[0]);
+techStack?.forEach(techId => {
+    techList.push(fullTechList?.filter((item: any) => item.id === techId)[0]);
 });
 
 function editProject() {

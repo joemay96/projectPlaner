@@ -42,9 +42,6 @@ const updateProject = {
     tags,
 };
 
-console.log(typeof techStack, techStack);
-console.log(typeof tags, tags);
-
 const workEstimationValues: String[] = ['Small', 'Medium', 'Long', 'Very long'];
 
 function techDataChange(techData: [String]) {
@@ -63,7 +60,6 @@ function techDataChange(techData: [String]) {
 
 function tagDataChange(tagData: [String]) {
     try {
-        // newProject.techStack = tagData;
         const d = JSON.parse(JSON.stringify(tagData));
         updateProject.tags = d.toString();
     } catch (error) {
@@ -89,6 +85,7 @@ async function editProject() {
             updateProject,
             updateProject.id,
         );
+        // @ts-ignore
         edit_project_modal.close();
         // TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
         // ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
@@ -167,7 +164,7 @@ async function editProject() {
                     </div>
                     <!-- TODO: they need the values given to them from before -->
                     <UtilsTechSelect @techSelectChange="techDataChange" />
-                    <UtilsTagCreation @tagChange="tagDataChange" />
+                    <UtilsTagCreation @tagChange="tagDataChange" :tags="tags" />
                     <!-- <div class="form-control">
 				<label class="label pb-0">
 					<span class="label-text">Photo</span>
