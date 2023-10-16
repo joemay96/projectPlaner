@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import client from '~/plugins/auth/client';
+const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
 
 const props = defineProps({
     id: { String, required: true },
@@ -52,7 +53,16 @@ function editButton() {
     console.log('Edit pressed');
 }
 
-function deleteButton() {
+async function deleteButton() {
+    try {
+        const res = await client.deleteProjectById(id);
+        console.log(res);
+        $createSuccessAlert('Project deleted');
+        navigateTo('/');
+    } catch (error) {
+        $createErrorAlert('Could not delete project');
+        console.log(error);
+    }
     console.log('Delete Button pressed');
 }
 

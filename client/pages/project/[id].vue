@@ -9,7 +9,6 @@ definePageMeta({
 const projectId = route.params.id;
 const pj = await client.getProjectById(projectId);
 const fullTechList = await client.getTechList();
-console.log(pj);
 </script>
 
 <template>
