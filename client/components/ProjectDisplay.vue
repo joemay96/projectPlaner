@@ -10,7 +10,7 @@ const props = defineProps({
     motivation: String,
     workEstimation: String,
     tags: String,
-    techStack: Array,
+    techStack: Array<string>,
     fullTechList: Array,
     created: { type: Date, required: true },
     updated: { type: Date, required: true },
@@ -49,8 +49,8 @@ techStack.forEach(techId => {
     techList.push(fullTechList.filter(item => item.id === techId)[0]);
 });
 
-function editButton() {
-    console.log('Edit pressed');
+function editProject() {
+    edit_project_modal.showModal();
 }
 
 async function deleteButton() {
@@ -126,14 +126,28 @@ function openMarkdownEditor() {
                     Add Notes
                 </button> -->
                 <div class="flex gap-2">
-                    <button class="btn btn-warning" @click="editButton">
-                        Edit
+                    <button class="btn btn-warning" @click="editProject">
+                        <Icon size="24px" name="mdi:pen" color="white" />
                     </button>
                     <button class="btn btn-error" @click="deleteButton">
-                        Delete
+                        <Icon
+                            size="24px"
+                            name="fluent:delete-48-regular"
+                            color="white"
+                        />
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    <ModalsEditProject
+        :id="id"
+        :userid="userid"
+        :title="title"
+        :description="description"
+        :motivation="motivation"
+        :workEstimation="workEstimation"
+        :techStack="techStack"
+        :tags="tagList"
+    />
 </template>

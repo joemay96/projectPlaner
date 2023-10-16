@@ -65,7 +65,6 @@ function openEditTechModal(pd) {
             />
         </template>
     </div>
-    <!-- TODO: Wie update ich die Props in der child component -->
     <ModalsEditTech
         :id="id"
         :userid="user.id"
