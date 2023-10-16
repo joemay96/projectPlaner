@@ -163,7 +163,10 @@ async function editProject() {
                         </select>
                     </div>
                     <!-- TODO: they need the values given to them from before -->
-                    <UtilsTechSelect @techSelectChange="techDataChange" />
+                    <UtilsTechSelect
+                        @techSelectChange="techDataChange"
+                        :techStack="techStack"
+                    />
                     <UtilsTagCreation @tagChange="tagDataChange" :tags="tags" />
                     <!-- <div class="form-control">
 				<label class="label pb-0">

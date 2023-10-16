@@ -12,7 +12,7 @@ const props = defineProps({
 
 const refProps = toRefs(props);
 const tags = ref([]);
-refProps.tags.value.forEach(v => {
+refProps.tags.value.forEach((v: String) => {
     tags.value.push(v);
 });
 
