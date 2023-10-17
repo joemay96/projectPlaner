@@ -24,6 +24,8 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "@nuxtjs/color-mode": "^3.3.0",
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7",
     "pocketbase": "^0.18.0"
   }
 }

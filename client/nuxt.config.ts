@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
 //   target: 'static', // -> definetly static, when that is possible. 
   ssr: false,
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', 'nuxt-icon', '@formkit/auto-animate/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', 'nuxt-icon', '@formkit/auto-animate/nuxt', '@pinia/nuxt'],
   // tailwindcss: {
   // 	cssPath: '~/assets/css/tailwind.css',
   // 	viewer: true,
@@ -36,5 +36,15 @@ export default defineNuxtConfig({
               },
           ],
       },
+      pageTransition: {
+        name: "page", mode: "out-in"
+      },
+  },
+  imports: {
+    dirs: ['./store'],
+  },
+
+  pinia: {
+    autoImports: ['defineStore', 'acceptHMRUpdate'],
   },
 });
