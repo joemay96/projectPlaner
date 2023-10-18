@@ -31,7 +31,7 @@ const area = ref('');
 const imagePath = ref('');
 const url = ref('');
 
-function openEditTechModal(pd) {
+function openEditTechModal(pd: any) {
     id.value = pd.id;
     name.value = pd.name;
     area.value = pd.area;

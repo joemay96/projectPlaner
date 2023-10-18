@@ -66,7 +66,7 @@ function editTechEmit() {
 			</figure>
 		</div> -->
         <figure class="" @click="searchTech()">
-            <img :src="imageUrl" alt="TechStack" />
+            <img :src="imageUrl" class="w-full" alt="TechStack" />
         </figure>
         <div class="card-body">
             <div
