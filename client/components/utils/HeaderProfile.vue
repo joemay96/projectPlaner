@@ -1,13 +1,12 @@
 <script setup lang="ts">
 // Habe im Moment kein Client modul
-import client from '../../plugins/auth/client.js';
-const { $createSuccessAlert, $updateUserStatus } = useNuxtApp();
+const { $createSuccessAlert, $updateUserStatus, $client } = useNuxtApp();
 const { $userStatus } = useNuxtApp();
 
 watch($userStatus, (newVal, oldVal) => {
     if (newVal) {
-        user.value = client.getUserLS();
-        imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${
+        user.value = $client.getUserLS();
+        imgUrl = `${$client.getUrl()}/api/files/_pb_users_auth_/${
             user.value.id
         }/${user.value.avatar}`;
     } else {
@@ -17,19 +16,19 @@ watch($userStatus, (newVal, oldVal) => {
 
 let user = ref();
 if (process.client) {
-    user.value = client.getUserLS();
+    user.value = $client.getUserLS();
 }
 
 let imgUrl = '';
 if (user.value) {
-    imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.value.id}/${
+    imgUrl = `${$client.getUrl()}/api/files/_pb_users_auth_/${user.value.id}/${
         user.value.avatar
     }`;
 }
 
 const logout = async () => {
     $createSuccessAlert('Logout successful');
-    await client.logout();
+    await $client.logout();
     $updateUserStatus(false);
     await navigateTo('/auth');
 };

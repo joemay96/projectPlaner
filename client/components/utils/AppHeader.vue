@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import client from '../../plugins/auth/client.js';
+const { $userStatus, $client } = useNuxtApp();
 const colorMode = useColorMode();
-const { $userStatus } = useNuxtApp();
 
 watch($userStatus, (newVal, oldVal) => {
     if (newVal) {
-        user.value = client.getUserLS();
+        user.value = $client.getUserLS();
     } else {
         // TODO: check if null is okay
         user.value = null;
@@ -22,7 +21,7 @@ const toggleDark = () => {
 
 let user = ref();
 if (process.client) {
-    user.value = client.getUserLS();
+    user.value = $client.getUserLS();
 }
 </script>
 

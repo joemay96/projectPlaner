@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 
 const props = defineProps({
-    id: { String, required: true },
+    id: { type: String, required: true },
     userid: String,
     title: String,
     description: String,
@@ -50,12 +49,13 @@ techStack?.forEach(techId => {
 });
 
 function editProject() {
+    // @ts-ignore
     edit_project_modal.showModal();
 }
 
 async function deleteButton() {
     try {
-        const res = await client.deleteProjectById(id);
+        const res = await $client.deleteProjectById(id);
         console.log(res);
         $createSuccessAlert('Project deleted');
         navigateTo('/');

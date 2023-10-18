@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
+const { $client } = useNuxtApp();
 
 const emit = defineEmits(['techSelectChange']);
 const props = defineProps({
@@ -15,10 +15,10 @@ const refProps = toRefs(props);
 let data: any = [];
 
 try {
-    data = await client.getTechList();
+    data = await $client.getTechList();
     // Create current Techstack
     refProps.techStack.value.forEach((tech_id: String) => {
-        const obj = data.find(x => x.id === tech_id);
+        const obj = data.find((x: any) => x.id === tech_id);
         selectedTech.value.push(obj);
     });
 } catch (error) {

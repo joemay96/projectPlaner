@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
 // alternatively, you can also use it here
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp()
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp()
 
 // TODO: tech is not selectable, when already selected
 
@@ -13,7 +12,7 @@ type tech =  {
 	url: String | undefined,
 }
 
-const user = client.getUserLS();
+const user = $client.getUserLS();
 
 let newTech: tech = {
 	userid: user.id,
@@ -39,7 +38,8 @@ async function saveTech() {
 	}
 	
 	try {
-		const res = await client.createTech(newTech);
+		const res = await $client.createTech(newTech);
+		// @ts-ignore
 		add_tech_modal.close()
 		$createSuccessAlert('Tech created successful');
 		// TODO: send a refetch event to /tech

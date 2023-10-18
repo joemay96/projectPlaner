@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 
 const emit = defineEmits(['editTech']);
 
@@ -28,7 +27,7 @@ if (imagePath && imagePath != '' && imagePath.split('/').at(-1) != '') {
 
 function deleteTech() {
     try {
-        client.deleteTechById(id);
+        $client.deleteTechById(id);
         $createSuccessAlert('Tech deleted');
     } catch (error) {
         console.log(error);
@@ -39,11 +38,11 @@ function deleteTech() {
 function searchTech() {
     if (url && url != '') {
         console.log(url);
-        window.open(url, '_blank').focus();
+        window.open(url, '_blank')?.focus();
     } else {
         window
             .open(`https://duckduckgo.com/?q=${name}&ia=web`, '_blank')
-            .focus();
+            ?.focus();
     }
 }
 

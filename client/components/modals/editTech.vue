@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client.js';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 import { isValidHttpUrl } from '~/plugins/utils/valFuncs.js';
 
 const props = defineProps({
@@ -52,11 +51,11 @@ function onFileChange(e: any) {
     updatePicture(files[0]);
 }
 
-function updatePicture(file) {
+function updatePicture(file: File) {
     let reader = new FileReader();
     reader.onload = function (e) {
-        const profileImage = document.getElementById('techImage');
-        profileImage.src = e.target.result;
+        const profileImage: any = document.getElementById('techImage');
+        profileImage.src = e.target?.result;
     };
     reader.readAsDataURL(file);
 }
@@ -75,7 +74,8 @@ async function updateTech() {
     }
 
     try {
-        const res = await client.updateTechById(newTech.id, newTech);
+        const res = await $client.updateTechById(newTech.id, newTech);
+        // @ts-ignore
         edit_tech_modal.close();
         // TODO: send a refetch event to /tech
         console.log(res);

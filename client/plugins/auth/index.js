@@ -24,6 +24,7 @@ export default defineNuxtPlugin(nuxtApp => {
 		provide: {
 			userStatus,
 			updateUserStatus,
+			client,
 		}
 	}
   })

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 // const workEstimation = [
 // "Small (few days)",
 // "Medium (few weeks)",
@@ -79,7 +78,7 @@ async function editProject() {
     }
 
     try {
-        const res = await client.updateProjectById(
+        const res = await $client.updateProjectById(
             updateProject.id,
             updateProject,
         );

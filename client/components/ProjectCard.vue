@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client.js';
+const { $client } = useNuxtApp();
 
 const props = defineProps({
     id: String,
@@ -24,15 +24,15 @@ const {
 } = props;
 
 const techList: any = [];
-techStack.forEach(techId => {
-    techList.push(fullTechList.filter(item => item.id === techId)[0]);
+techStack?.forEach(techId => {
+    techList.push(fullTechList?.filter((item: any) => item.id === techId)[0]);
 });
 
-const tagList = tags.split(',');
+const tagList = tags?.split(',');
 
 async function deleteProject() {
     try {
-        const res = await client.deleteProjectById(id);
+        const res = await $client.deleteProjectById(id);
         console.log(res);
     } catch (error) {
         console.error(error);

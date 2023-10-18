@@ -27,11 +27,11 @@ function profilePictureChange(e: any) {
 }
 
 //create Reader to update the profile Picture
-function updateProfilePicture(file) {
+function updateProfilePicture(file: File) {
     let reader = new FileReader();
     reader.onload = function (e) {
-        const profileImage = document.getElementById('profileImage');
-        profileImage.src = e.target.result;
+        const profileImage: any = document.getElementById('profileImage');
+        profileImage.src = e.target?.result;
     };
     reader.readAsDataURL(file);
 }

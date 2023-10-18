@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 // const workEstimation = [
 // "Small (few days)",
 // "Medium (few weeks)",
@@ -15,11 +14,11 @@ type project = {
     description: string | number | string[] | undefined;
     motivation: string | number | string[] | undefined;
     workEstimation: String;
-    techStack: [String];
+    techStack: Array<String>;
     tags: [String];
 };
 
-const user = client.getUserLS();
+const user = $client.getUserLS();
 
 let newProject: project = {
     userid: user.id,
@@ -47,8 +46,8 @@ function techDataChange(techData: [String]) {
     try {
         // newProject.techStack = techData;
         const d = JSON.parse(JSON.stringify(techData));
-        let a = [];
-        d.forEach(o => {
+        let a: Array<any> = [];
+        d.forEach((o: any) => {
             a.push(o.id);
         });
         newProject.techStack = a;
@@ -81,7 +80,8 @@ async function saveProject() {
     console.log(newProject);
 
     try {
-        const res = await client.createProject(newProject);
+        const res = await $client.createProject(newProject);
+        // @ts-ignore
         add_project_modal.close();
         // TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
         // ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
