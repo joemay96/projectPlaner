@@ -195,5 +195,4 @@ function openMarkdownEditor() {
 .projectHeaderitem:last-child {
     align-items: end;
 }
-
 </style>

@@ -37,7 +37,7 @@ function openEditTechModal(pd: any) {
         <div
             class="grid grid-cols-1 xl:grid-cols-6 lg:grid-cols-3 sm:grid-cols-2 gap-4 px-8 md:px-20 flex-1 justify-around"
         >
-            <template v-for="t in store.getTechs" key="p.id">
+            <template v-for="t in store.getTechs" :key="t.id">
                 <!-- @ts-ignore -->
                 <TechStackCard
                     :id="t.id"
