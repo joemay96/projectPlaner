@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
+const projectStore = useProject();
 // const workEstimation = [
 // "Small (few days)",
 // "Medium (few weeks)",
@@ -84,8 +85,7 @@ async function saveProject() {
         // @ts-ignore
         add_project_modal.close();
         // TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
-        // ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
-        console.log(res);
+        projectStore.addProject(res);
         $createSuccessAlert('Project created');
         resetProject();
     } catch (error) {

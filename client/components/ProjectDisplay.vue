@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import { initCustomFormatter } from 'vue';
+
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
+const projectStore = useProject();
 
 const props = defineProps({
     id: { type: String, required: true },
     userid: String,
-    title: String,
-    description: String,
-    motivation: String,
-    workEstimation: String,
-    tags: String,
-    techStack: Array<string>,
+    title: {type: String, required: true},
+    description: {type: String, default: ""},
+    motivation: {type: String, default: ""},
+    workEstimation: {type: String, default: ""},
+    tags: {type: String, default: ""},
+    techStack: {type: Array<string>, default: [""]},
     fullTechList: Array,
     created: { type: Date, required: true },
     updated: { type: Date, required: true },
@@ -22,31 +25,47 @@ const {
     description,
     motivation,
     workEstimation,
-    tags,
-    techStack,
-    fullTechList,
+    fullTechList,   
     created,
-    updated,
 } = props;
+let { tags, techStack, updated} = props;
 
-let tagList: any = [];
+const titleRef = toRef(title),
+descriptionRef = toRef(description),
+motivationRef = toRef(motivation),
+workEstimationRef = toRef(workEstimation),
+tagsRef = toRef(tags),
+techStackRef = toRef(techStack);
+// updated = refProps.updated;
+ 
 
-if (tags && tags != '') {
-    tagList = tags.split(',');
-}
-
+let tagList: any = ref([]);
+const techList: any = ref([]);
+let updatedDateString = ref("") 
 const createdDateString = `${created.getUTCDate()}-${
     created.getUTCMonth() + 1
 }-${created.getUTCFullYear()}`;
 
-const updatedDateString = `${updated.getUTCDate()}-${
-    updated.getUTCMonth() + 1
-}-${updated.getUTCFullYear()}`;
-
-const techList: any = [];
-techStack?.forEach(techId => {
-    techList.push(fullTechList?.filter((item: any) => item.id === techId)[0]);
-});
+// Setup functions
+function setTagList() {
+    if (tags && tags != '') {
+        tagList.value = tags?.split(',');
+    }
+}
+function updateDateString() {
+    updatedDateString.value = `${updated.getUTCDate()}-${updated.getUTCMonth() + 1}-${updated.getUTCFullYear()}`;
+}
+function setTechList() {
+    techList.value = []
+    techStack?.forEach(techId => {
+        techList.value.push(fullTechList?.filter((item: any) => item.id === techId)[0]);
+    });
+}
+(function init() {
+    setTagList()
+    updateDateString()
+    setTechList();
+})()
 
 function editProject() {
     // @ts-ignore
@@ -58,12 +77,27 @@ async function deleteButton() {
         const res = await $client.deleteProjectById(id);
         console.log(res);
         $createSuccessAlert('Project deleted');
+        projectStore.deleteProjectById(id)
         navigateTo('/');
     } catch (error) {
         $createErrorAlert('Could not delete project');
         console.log(error);
     }
     console.log('Delete Button pressed');
+}
+
+function refreshData() {
+    const updatedProject = projectStore.getProjectById(id)
+    titleRef.value = updatedProject.title;
+    descriptionRef.value = updatedProject.description;
+    motivationRef.value = updatedProject.motivation;
+    workEstimationRef.value = updatedProject.workEstimation;
+    tags = updatedProject.tags;
+    techStack = updatedProject.techStack;
+    updated = new Date(updatedProject.updated);
+    updateDateString();
+    setTagList();
+    setTechList();
 }
 
 function openMarkdownEditor() {
@@ -79,7 +113,7 @@ function openMarkdownEditor() {
                 <div class="">
                     <p class="">
                         <span class="">Work estimation: </span
-                        >{{ workEstimation }}
+                        >{{ workEstimationRef }}
                     </p>
                     <p>Created: {{ createdDateString }}</p>
                     <p>updated: {{ updatedDateString }}</p>
@@ -87,7 +121,7 @@ function openMarkdownEditor() {
 
                 <h2 class="text-2xl font-bold text-primary">
                     <!---->
-                    {{ title }}
+                    {{ titleRef }}
                 </h2>
 
                 <div class="flex flex-col gap-1 justify-center">
@@ -106,9 +140,9 @@ function openMarkdownEditor() {
             <div class="flex gap-4">
                 <div>
                     <p class="font-bold my-2">Description</p>
-                    <p class="">{{ description }}</p>
+                    <p class="">{{ descriptionRef }}</p>
                     <p class="font-bold my-2">Motivation</p>
-                    <p class="">{{ motivation }}</p>
+                    <p class="">{{ motivationRef }}</p>
                     <p class="font-bold my-2">Tech Stack</p>
                     <div class="flex flex-row gap-2 justify-start">
                         <template
@@ -149,5 +183,6 @@ function openMarkdownEditor() {
         :workEstimation="workEstimation"
         :techStack="techStack"
         :tags="tagList"
+        @updatedProject="refreshData"
     />
 </template>

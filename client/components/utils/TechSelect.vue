@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { $client } = useNuxtApp();
+const techStore = useTech();
+import {dbTech} from "~/types/tech" 
 
 const emit = defineEmits(['techSelectChange']);
 const props = defineProps({
@@ -12,10 +13,9 @@ const props = defineProps({
 const selectedTech = ref([]);
 const refProps = toRefs(props);
 
-let data: any = [];
+let data: dbTech[] = techStore.getTechs;
 
 try {
-    data = await $client.getTechList();
     // Create current Techstack
     refProps.techStack.value.forEach((tech_id: String) => {
         const obj = data.find((x: any) => x.id === tech_id);

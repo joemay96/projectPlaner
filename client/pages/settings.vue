@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client.js';
-const { $createSuccessAlert, $createErrorAlert } = useNuxtApp();
+const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 import { Icon } from '#components';
 const colorMode = useColorMode();
 
@@ -8,7 +7,7 @@ definePageMeta({
     middleware: ['auth'],
 });
 
-const user = client.getUserLS();
+const user = $client.getUserLS();
 const oldUsername = user.username;
 
 let updatedUser = {
@@ -38,14 +37,14 @@ function updateProfilePicture(file: File) {
 
 let imgUrl = '';
 if (user) {
-    imgUrl = `${client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${
+    imgUrl = `${$client.getUrl()}/api/files/_pb_users_auth_/${user.id}/${
         user.avatar
     }`;
 }
 
 async function updateUserData() {
     try {
-        const res = await client.updateUser(updatedUser);
+        const res = await $client.updateUser(updatedUser);
         $createSuccessAlert('Information updated');
         console.log(res);
         window.location.reload();
@@ -59,11 +58,12 @@ const baseContentColor = getComputedStyle(document.body).getPropertyValue(
     'var(--bc)',
 );
 
-let iconColor = baseContentColor;
+let iconColor = ref("")
+iconColor.value = baseContentColor;
 let iconSize = '72px';
 
 if (colorMode.preference === 'dark') {
-    iconColor = 'white';
+    iconColor.value = 'white';
 }
 
 if (window.innerWidth < 384) {

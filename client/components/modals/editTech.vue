@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
+const techStore = useTech();
+// import {tech} from "~/types/tech"
 import { isValidHttpUrl } from '~/plugins/utils/valFuncs.js';
 
 const props = defineProps({
@@ -25,6 +27,8 @@ watch(
     },
     { deep: true },
 );
+
+// TODO: clear the types problem
 
 type tech = {
     id: String;
@@ -78,7 +82,7 @@ async function updateTech() {
         // @ts-ignore
         edit_tech_modal.close();
         // TODO: send a refetch event to /tech
-        console.log(res);
+        techStore.updateTech(newTech)
         $createSuccessAlert('Tech updated');
     } catch (error) {
         $createErrorAlert('Tech could not be updated');

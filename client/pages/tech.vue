@@ -1,29 +1,14 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
-const user = client.getUserLS();
+const { $client } = useNuxtApp();
+const store = useTech()
+
+const user = $client.getUserLS();
 
 definePageMeta({
     middleware: ['auth'],
 });
 
-let data: any = [];
-let imgBasePath: String = `${client.getUrl()}/api/files`;
-
-try {
-    data = await client.getTechList();
-} catch (error) {
-    // TODO: report error to user
-    console.log(error);
-}
-
-// const projectData = {
-// 	id: "",
-// 	userid: user.id,
-// 	name: "",
-// 	area: "",
-// 	imagePath: null,
-// 	url: ""
-// }
+let imgBasePath: String = `${$client.getUrl()}/api/files`;
 
 const id = ref('');
 const name = ref('');
@@ -37,7 +22,7 @@ function openEditTechModal(pd: any) {
     area.value = pd.area;
     imagePath.value = pd.imagePath;
     url.value = pd.url;
-
+    //@ts-ignore
     edit_tech_modal.showModal();
 }
 </script>
@@ -52,7 +37,7 @@ function openEditTechModal(pd: any) {
         <div
             class="grid grid-cols-1 xl:grid-cols-6 lg:grid-cols-3 sm:grid-cols-2 gap-4 px-8 md:px-20 flex-1 justify-around"
         >
-            <template v-for="t in data" key="p.id">
+            <template v-for="t in store.getTechs" key="p.id">
                 <!-- @ts-ignore -->
                 <TechStackCard
                     :id="t.id"

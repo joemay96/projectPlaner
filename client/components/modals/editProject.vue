@@ -1,5 +1,7 @@
 <script setup lang="ts">
+const emit = defineEmits(["updatedProject"])
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
+const projectStore = useProject();
 // const workEstimation = [
 // "Small (few days)",
 // "Medium (few weeks)",
@@ -86,12 +88,15 @@ async function editProject() {
         edit_project_modal.close();
         // TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
         // ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
-        console.log(res);
+        // TODO: problem with types
+        projectStore.updateProject(res)
+        emit("updatedProject")
         $createSuccessAlert('Project updated');
     } catch (error) {
-        //TODO: response to user that error happend
         $createErrorAlert('Project not updated');
         console.error(error);
+        // @ts-ignore
+        edit_project_modal.close();
     }
 }
 </script>

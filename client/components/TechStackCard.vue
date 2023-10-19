@@ -1,16 +1,17 @@
 <script setup lang="ts">
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
+const techStore = useTech();
 
 const emit = defineEmits(['editTech']);
 
 const props = defineProps({
-    id: String,
+    id: { type: String, required: true },
     name: String,
     area: String,
     imagePath: String,
     url: {
-        type: String,
-        required: true,
+        type: String || URL,
+        required: false,
         default: 'https://projectplaner.sharky.live/',
     },
 });
@@ -29,6 +30,7 @@ function deleteTech() {
     try {
         $client.deleteTechById(id);
         $createSuccessAlert('Tech deleted');
+        techStore.deleteTechById(id);
     } catch (error) {
         console.log(error);
         $createErrorAlert('Tech not deleted');

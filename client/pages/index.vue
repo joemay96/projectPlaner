@@ -1,31 +1,12 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client';
-// import {projects} from "../data/Projects.js"
+const techStore = useTech();
+const projectStore = useProject();
+
 definePageMeta({
     middleware: ['auth'],
 });
 
-let projectData: any = [];
-let techData: any = [];
 
-try {
-    const data = await client.getProjectList();
-    projectData = data.items;
-    const tData = await client.getTechList();
-    techData = tData;
-} catch (error) {
-    // TODO: report error to user
-    console.error(error);
-}
-
-// async function getTechData(techStackIdList) {
-// 	const techStack: any = [];
-// 	techStackIdList.forEach(id => {
-// 		const tech = await client.getTechById(id);
-// 		techStack.push(tech);
-// 	})
-// 	return techStack;
-// }
 </script>
 
 <template>
@@ -39,8 +20,7 @@ try {
             class="grid grid-cols-1 xl:grid-cols-2 gap-4 px-20 flex-1 justify-around"
             v-auto-animate
         >
-            <template v-for="p in projectData" key="p.id">
-                <!-- @ts-ignore -->
+            <template v-for="p in projectStore.getProjects" :key="p.id">
                 <ProjectCard
                     :id="p.id"
                     :title="p.title"
@@ -49,7 +29,7 @@ try {
                     :workEstimation="p.workEstimation"
                     :techStack="p.techStack"
                     :tags="p.tags"
-                    :fullTechList="techData"
+                    :fullTechList="techStore.getTechs"
                 />
             </template>
         </div>

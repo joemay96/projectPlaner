@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import client from '~/plugins/auth/client.js';
+const techStore = useTech();
+const projectStore = useProject();
 const route = useRoute();
 
 definePageMeta({
@@ -7,14 +8,13 @@ definePageMeta({
 });
 
 const projectId = route.params.id;
-const pj = await client.getProjectById(projectId);
-const fullTechList = await client.getTechList();
+const pj = ref(projectStore.getProjectById(projectId));
 </script>
 
 <template>
     <div class="flex flex-col items-center">
         <ProjectDisplay
-            :id="pj.id"
+            :id="pj.id" 
             :userid="pj.userid"
             :title="pj.title"
             :description="pj.description"
@@ -22,7 +22,7 @@ const fullTechList = await client.getTechList();
             :workEstimation="pj.workEstimation"
             :tags="pj.tags"
             :techStack="pj.techStack"
-            :fullTechList="fullTechList"
+            :fullTechList="techStore.getTechs"
             :created="new Date(pj.created)"
             :updated="new Date(pj.updated)"
         />

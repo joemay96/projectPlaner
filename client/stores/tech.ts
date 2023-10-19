@@ -1,35 +1,52 @@
-const delay = (t: number) => new Promise((r) => setTimeout(r, t))
+import {dbTech} from "~/types/tech"
 
 export const useTech = defineStore('tech', {
 	// define the inital state 
   state: () => ({
-    n: 2,
-    incrementedTimes: 0,
-    decrementedTimes: 0,
-    numbers: [] as number[],
+    techs: [] as dbTech[],
   }),
 
   getters: {
-    double: (state) => state.n * 2,
+    getTechById: (state) => {
+      return (techId: String) => state.techs?.find((t: dbTech) => t.id === techId)
+    },
+    getTechs: (state) => {
+      return state.techs
+    }
   },
 
   actions: {
-    increment(amount = 1) {
-      this.incrementedTimes++
-      this.n += amount
+    // adding a tech to the list of techs
+    addTech(newTech: dbTech) {
+      this.techs.push(newTech)
     },
 
-    async decrementToZero(interval: number = 300) {
-      if (this.n <= 0) return
-
-      while (this.n > 0) {
-        this.$patch((state) => {
-          state.n--
-          state.decrementedTimes++
-        })
-        await delay(interval)
+    // delete a tech from the array of tech
+    deleteTechById(techId: String){
+      let i: number = -1;
+      this.techs.forEach((t: dbTech, index) => {
+        if(t.id == techId) {
+          i = index;
+        }
+      })
+      if(i !== -1) {
+        this.techs.splice(i, 1);
       }
     },
+
+    // update a Tech
+    updateTech(updateTech: dbTech){
+      this.techs.forEach((t: dbTech, index) => {
+        if(t.id === updateTech.id) {
+          this.techs[index] = updateTech;
+        }
+      })
+    },
+
+    // loads the inital state of the store
+    loadTechs(techs: dbTech[]) {
+      this.techs = techs;
+    }
   },
 })
 

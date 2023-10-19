@@ -1,8 +1,6 @@
 <script setup lang="ts">
-const { $client } = useNuxtApp();
-
 const props = defineProps({
-    id: String,
+    id: {type: String},
     title: String,
     description: String,
     motivation: String,
@@ -30,14 +28,14 @@ techStack?.forEach(techId => {
 
 const tagList = tags?.split(',');
 
-async function deleteProject() {
-    try {
-        const res = await $client.deleteProjectById(id);
-        console.log(res);
-    } catch (error) {
-        console.error(error);
-    }
-}
+// async function deleteProject() {
+//     try {
+//         const res = await $client.deleteProjectById(id);
+//         console.log(res);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
 </script>
 
 <template>

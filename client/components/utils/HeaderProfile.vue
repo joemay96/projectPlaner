@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // Habe im Moment kein Client modul
-const { $createSuccessAlert, $updateUserStatus, $client } = useNuxtApp();
-const { $userStatus } = useNuxtApp();
+const { $createSuccessAlert, $updateUserStatus, $client, $userStatus } = useNuxtApp();
 
 watch($userStatus, (newVal, oldVal) => {
     if (newVal) {

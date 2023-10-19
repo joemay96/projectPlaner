@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // alternatively, you can also use it here
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp()
-
+const techStore = useTech();
 // TODO: tech is not selectable, when already selected
 
 type tech =  {
@@ -41,6 +41,7 @@ async function saveTech() {
 		const res = await $client.createTech(newTech);
 		// @ts-ignore
 		add_tech_modal.close()
+		techStore.addTech(res)
 		$createSuccessAlert('Tech created successful');
 		// TODO: send a refetch event to /tech
 		console.log(res);
