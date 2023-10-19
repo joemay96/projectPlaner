@@ -109,8 +109,8 @@ function openMarkdownEditor() {
     <div class="card my-10 mx-20 bg-neutral text-neutral-content max-w-6xl">
         <div class="card-body">
             <!-- items-center text-center -->
-            <div class="flex flex-row justify-between">
-                <div class="">
+            <div class="flex justify-center">
+                <div class="projectHeaderitem">
                     <p class="">
                         <span class="">Work estimation: </span
                         >{{ workEstimationRef }}
@@ -119,12 +119,12 @@ function openMarkdownEditor() {
                     <p>updated: {{ updatedDateString }}</p>
                 </div>
 
-                <h2 class="text-2xl font-bold text-primary">
+                <h2 class="projectHeaderitem text-2xl font-bold text-primary justify-self-center">
                     <!---->
                     {{ titleRef }}
                 </h2>
 
-                <div class="flex flex-col gap-1 justify-center">
+                <div class="projectHeaderitem flex flex-col gap-1 justify-center">
                     <template v-for="(tag, index) in tagList" :key="index">
                         <div
                             v-if="tag != ''"
@@ -186,3 +186,14 @@ function openMarkdownEditor() {
         @updatedProject="refreshData"
     />
 </template>
+<style>
+.projectHeaderitem:not(:nth-child(2)) {
+    flex-basis: 0%;
+    flex-grow: 1;
+}
+
+.projectHeaderitem:last-child {
+    align-items: end;
+}
+
+</style>

@@ -1,11 +1,10 @@
 // const delay = (t: number) => new Promise((r) => setTimeout(r, t))
 import {dbProject} from "~/types/project"
 import client from "~/plugins/auth/client"
-// const {$client} = useNuxtApp(); 
 
 const emptyProject: dbProject = {
   id: "",
-  userid: client.getUserLS.id,//current userid,
+  userid: client.getUserLS.id || "",
   title: "",
   description: "",
   motivation: "",
