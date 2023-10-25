@@ -39,7 +39,9 @@ function resetShow() {
 
 <template>
     <div v-if="showRef" class="flex justify-center">
-        <div class="alert alert-success w-full max-w-2xl fixed top-10">
+        <div
+            class="alert alert-success w-full max-w-2xl fixed top-10 alert-animation z-50"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="stroke-current shrink-0 h-6 w-6"
@@ -64,3 +66,20 @@ function resetShow() {
         </div>
     </div>
 </template>
+
+<style>
+.alert-animation {
+    animation-name: alertAnim;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes alertAnim {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 2.5rem;
+    }
+}
+</style>
