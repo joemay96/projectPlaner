@@ -25,7 +25,6 @@ watch(showRef, (newVal, oldVal) => {
     if (newVal) {
         showAlert();
     }
-    console.log(newVal, oldVal);
 });
 
 function showAlert() {
@@ -33,8 +32,7 @@ function showAlert() {
 }
 
 function resetShow() {
-    console.log('trigger reset');
-    // showRef.value = false; -> geht nicht, da ready only -> trigger emit to parent
+    // showRef.value = false; -> geht nicht, da read only -> trigger emit to parent
     emit('closeAlert');
 }
 </script>
