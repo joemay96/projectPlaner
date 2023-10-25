@@ -33,11 +33,7 @@ let { tags, techStack, updated} = props;
 const titleRef = toRef(title),
 descriptionRef = toRef(description),
 motivationRef = toRef(motivation),
-workEstimationRef = toRef(workEstimation),
-tagsRef = toRef(tags),
-techStackRef = toRef(techStack);
-// updated = refProps.updated;
- 
+workEstimationRef = toRef(workEstimation);
 
 let tagList: any = ref([]);
 const techList: any = ref([]);

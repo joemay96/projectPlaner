@@ -16,15 +16,34 @@ const area = ref('');
 const imagePath = ref('');
 const url = ref('');
 
+const counter = ref(0);
+
 function openEditTechModal(pd: any) {
+    const data = store.getTechById(pd.id.value)
     id.value = pd.id;
-    name.value = pd.name;
-    area.value = pd.area;
-    imagePath.value = pd.imagePath;
-    url.value = pd.url;
+    name.value = data.name;
+    area.value = data.area;
+    imagePath.value = pd.imageBasePath.value;
+    url.value = data.url;
+    // console.log(pd.name.value)
     //@ts-ignore
     edit_tech_modal.showModal();
 }
+
+function refreshData() {
+    console.log("update triggered")
+    counter.value += 1;
+    // data.value = store.getTechs;
+    // const updatedProject = projectStore.getProjectById(id)
+    // titleRef.value = updatedProject.title;
+    // descriptionRef.value = updatedProject.description;
+    // motivationRef.value = updatedProject.motivation;
+    // workEstimationRef.value = updatedProject.workEstimation;
+    // tags = updatedProject.tags;
+    // techStack = updatedProject.techStack;
+    // updated = new Date(updatedProject.updated);
+}
+
 </script>
 
 <template>
@@ -38,16 +57,13 @@ function openEditTechModal(pd: any) {
             class="grid grid-cols-1 xl:grid-cols-6 lg:grid-cols-3 sm:grid-cols-2 gap-4 px-8 md:px-20 flex-1 justify-around"
         >
             <template v-for="t in store.getTechs" :key="t.id">
-                <!-- @ts-ignore -->
                 <TechStackCard
                     :id="t.id"
-                    :name="t.name"
-                    :area="t.area"
-                    :imagePath="
+                    :imageBasePath="
                         `${imgBasePath}/${t.collectionId}/${t.id}/${t.image}` ||
                         ''
                     "
-                    :url="t.url"
+                    :dataUpdate="counter"
                     @editTech="openEditTechModal"
                 />
             </template>
@@ -55,10 +71,7 @@ function openEditTechModal(pd: any) {
         <ModalsEditTech
             :id="id"
             :userid="user.id"
-            :name="name"
-            :area="area"
-            :imagePath="imagePath"
-            :url="url"
+            @updatedTech="refreshData"
         />
         <div class="mb-20"></div>
     </main>

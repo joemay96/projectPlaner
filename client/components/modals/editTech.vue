@@ -3,48 +3,63 @@ const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 const techStore = useTech();
 import { isValidHttpUrl } from '~/plugins/utils/valFuncs.js';
 
+const emit = defineEmits(["updatedTech"])
+
 const props = defineProps({
     id: ref(),
     userid: String,
-    name: String,
-    area: String,
-    imagePath: String,
-    url: String,
+    // name: String,
+    // area: String,
+    // imagePath: String,
+    // url: String,
 });
 
-const { id, userid, name, area, imagePath, url } = props;
+const { id, userid } = props;
 const refProps = toRefs(props);
 
 watch(
     refProps.id,
     (newVal, oldVal) => {
-        newTech.id = refProps.id.value;
-        newTech.name = refProps.name.value;
-        newTech.area = refProps.area.value;
-        newTech.image = refProps.imagePath.value;
-        newTech.url = refProps.url.value;
+        const current_tech_id = refProps.id.value.value
+        newTech.id = current_tech_id;
+        const tech = techStore.getTechById(current_tech_id)
+        console.log(tech)
+        newTech.name = tech.name;
+        newTech.area = tech.area;
+        newTech.image = tech.image;
+        newTech.url = tech.url;
+        checkImagePath(tech.image)
+        console.log(newTech)
     },
     { deep: true },
 );
 
-// TODO: clear the types problem
+const imageUrl = ref("")
+function checkImagePath(imagePath: String) {
+    if (imagePath && imagePath != '' && imagePath.split('/').at(-1) != '') {
+        imageUrl.value = imagePath;
+    } else {
+        imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
+            .href;
+    }
+}
 
 type tech = {
     id: String;
     userid: String;
     name: String;
     area: String;
-    image: File | null;
-    url: String | undefined;
+    image: string;
+    url:  URL | string | null;
 };
 
 let newTech: tech = {
     id: id,
     userid: userid,
-    name: name,
-    area: area,
-    image: imagePath,
-    url: url,
+    name: "", //ref(""),
+    area: "", //ref(""),
+    image: "", //ref(null),
+    url: "", //ref(""),
 };
 
 function onFileChange(e: any) {
@@ -82,12 +97,14 @@ async function updateTech() {
         edit_tech_modal.close();
         // TODO: send a refetch event to /tech
         techStore.updateTech(newTech)
+        emit("updatedTech");
         $createSuccessAlert('Tech updated');
     } catch (error) {
         $createErrorAlert('Tech could not be updated');
         console.error(error);
     }
 }
+
 </script>
 
 <template>
@@ -102,7 +119,7 @@ async function updateTech() {
             </form>
             <h3 class="font-bold text-xl">
                 Tech edit of
-                <span class="text-primary">{{ refProps.name.value }}</span>
+                <span class="text-primary">{{ newTech.name }}</span>
             </h3>
             <div class="modal-action">
                 <div class="w-full flex flex-col">

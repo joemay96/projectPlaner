@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { $createSuccessAlert, $createErrorAlert, $updateUserStatus, $client } =
+const { $createSuccessAlert, $createErrorAlert, $updateUserStatus, $client, $refetchStoreData } =
     useNuxtApp();
 
 const router = useRouter();
@@ -27,6 +27,7 @@ async function login() {
         login_modal.close();
         $updateUserStatus(true);
         await navigateTo('/');
+        $refetchStoreData();
         $createSuccessAlert('Welcome!');
     }
 }

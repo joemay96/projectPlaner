@@ -13,8 +13,8 @@ type dbTech = {
 	url: URL | string | null,
 	collectionId?: string,
 	collectionName?: string,
-	created?: Date,
-	updated?: Date,
+	created?: Date|string,
+	updated?: Date|string,
 }
 
 export type {

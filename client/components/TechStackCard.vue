@@ -5,32 +5,45 @@ const techStore = useTech();
 const emit = defineEmits(['editTech']);
 
 const props = defineProps({
-    id: { type: String, required: true },
-    name: String,
-    area: String,
-    imagePath: String,
-    url: {
-        type: String || URL,
-        required: false,
-        default: 'https://projectplaner.sharky.live/',
-    },
+    // id: { type: ref(), required: true },
+    // imagePath: { type: ref(), default: ref("../assets/images/tech/default.jpg") },
+    id: ref(""),
+    imageBasePath: ref(""),
+    dataUpdate: ref(""),
 });
 
-const { id, name, area, imagePath, url = '' } = props;
+const { id, imageBasePath, dataUpdate } = toRefs(props);
+let { name, area, url } = techStore.getTechById(id.value)
 
-let imageUrl = '';
-if (imagePath && imagePath != '' && imagePath.split('/').at(-1) != '') {
-    imageUrl = imagePath;
+watch(imageBasePath,
+    (newVal, oldVal) => {
+        console.log("imagePath: ", imageBasePath)
+        console.log(newVal)
+        imageBasePath.value = newVal
+    },
+    { deep: true },
+);
+watch(dataUpdate, (newVal, oldVal) => {
+    const dataupdate = techStore.getTechById(id.value)
+    name = dataupdate.name;
+    area = dataupdate.area;
+    url = dataupdate.url;
+})
+
+
+let imageUrl = ref('');
+if (imageBasePath.value && imageBasePath.value != '' && imageBasePath.value.split('/').at(-1) != '') {
+    imageUrl.value = imageBasePath.value;
 } else {
-    imageUrl = new URL('../assets/images/tech/default.jpg', import.meta.url)
+    imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
         .href;
 }
 
 function deleteTech() {
     try {
-        $client.deleteTechById(id);
+        $client.deleteTechById(id.value);
         $createSuccessAlert('Tech deleted');
-        techStore.deleteTechById(id);
+        techStore.deleteTechById(id.value);
     } catch (error) {
         console.log(error);
         $createErrorAlert('Tech not deleted');
@@ -51,10 +64,7 @@ function searchTech() {
 function editTechEmit() {
     emit('editTech', {
         id,
-        name,
-        area,
-        imagePath,
-        url,
+        imageBasePath,
     });
 }
 </script>

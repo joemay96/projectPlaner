@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Habe im Moment kein Client modul
-const { $createSuccessAlert, $updateUserStatus, $client, $userStatus } = useNuxtApp();
+const { $createSuccessAlert, $updateUserStatus, $client, $userStatus, $deleteStoreData } = useNuxtApp();
 
 watch($userStatus, (newVal, oldVal) => {
     if (newVal) {
@@ -29,6 +29,7 @@ const logout = async () => {
     $createSuccessAlert('Logout successful');
     await $client.logout();
     $updateUserStatus(false);
+    $deleteStoreData();
     await navigateTo('/auth');
 };
 </script>

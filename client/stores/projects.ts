@@ -4,6 +4,7 @@ import client from "~/plugins/auth/client"
 
 const emptyProject: dbProject = {
   id: "",
+  // @ts-ignore
   userid: client.getUserLS.id || "",
   title: "",
   description: "",
@@ -61,7 +62,12 @@ export const useProject = defineStore('project', {
     // loads the inital state of the store
     loadProjects(projects: dbProject[]) {
       this.projects = projects;
-    }
+    },
+
+    // Clear the store state
+    clearStore() {
+      this.projects = [];
+    },
 
     // async decrementToZero(interval: number = 300) {
     //   if (this.n <= 0) return

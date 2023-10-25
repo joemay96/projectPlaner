@@ -1,4 +1,19 @@
 import {dbTech} from "~/types/tech"
+import client from "~/plugins/auth/client"
+
+const emptyTech: dbTech = {
+  id: "",
+  // @ts-ignore
+  userid: client.getUserLS.id || "",
+	name: "",
+	area: "",
+	image: null,
+	url: "",
+	collectionId: "",
+	collectionName: "",
+	created: Date.now().toString(),
+	updated: Date.now().toString(),
+}
 
 export const useTech = defineStore('tech', {
 	// define the inital state 
@@ -8,7 +23,7 @@ export const useTech = defineStore('tech', {
 
   getters: {
     getTechById: (state) => {
-      return (techId: String) => state.techs?.find((t: dbTech) => t.id === techId)
+      return (techId: String) => state.techs?.find((t: dbTech) => t.id === techId) || emptyTech
     },
     getTechs: (state) => {
       return state.techs
@@ -46,7 +61,12 @@ export const useTech = defineStore('tech', {
     // loads the inital state of the store
     loadTechs(techs: dbTech[]) {
       this.techs = techs;
-    }
+    },
+
+    // Clear the store state
+    clearStore() {
+      this.techs = [];
+    },
   },
 })
 
