@@ -25,23 +25,12 @@ function openEditTechModal(pd: any) {
     area.value = data.area;
     imagePath.value = pd.imageBasePath.value;
     url.value = data.url;
-    // console.log(pd.name.value)
     //@ts-ignore
     edit_tech_modal.showModal();
 }
 
 function refreshData() {
-    console.log("update triggered")
     counter.value += 1;
-    // data.value = store.getTechs;
-    // const updatedProject = projectStore.getProjectById(id)
-    // titleRef.value = updatedProject.title;
-    // descriptionRef.value = updatedProject.description;
-    // motivationRef.value = updatedProject.motivation;
-    // workEstimationRef.value = updatedProject.workEstimation;
-    // tags = updatedProject.tags;
-    // techStack = updatedProject.techStack;
-    // updated = new Date(updatedProject.updated);
 }
 
 </script>
@@ -60,7 +49,7 @@ function refreshData() {
                 <TechStackCard
                     :id="t.id"
                     :imageBasePath="
-                        `${imgBasePath}/${t.collectionId}/${t.id}/${t.image}` ||
+                        `${imgBasePath}/${t.collectionId}/${t.id}` ||
                         ''
                     "
                     :dataUpdate="counter"

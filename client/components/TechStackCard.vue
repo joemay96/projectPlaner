@@ -5,39 +5,38 @@ const techStore = useTech();
 const emit = defineEmits(['editTech']);
 
 const props = defineProps({
-    // id: { type: ref(), required: true },
-    // imagePath: { type: ref(), default: ref("../assets/images/tech/default.jpg") },
     id: ref(""),
-    imageBasePath: ref(""),
+    imageBasePath: "",
     dataUpdate: ref(""),
 });
 
-const { id, imageBasePath, dataUpdate } = toRefs(props);
-let { name, area, url } = techStore.getTechById(id.value)
+const { id, dataUpdate } = toRefs(props);
+const {imageBasePath} = props;
+let { name, area, url, image } = techStore.getTechById(id.value)
+let imageName = image;
 
-watch(imageBasePath,
-    (newVal, oldVal) => {
-        console.log("imagePath: ", imageBasePath)
-        console.log(newVal)
-        imageBasePath.value = newVal
-    },
-    { deep: true },
-);
 watch(dataUpdate, (newVal, oldVal) => {
+    // TODO: update more specific and only reload one data via id that was updated
     const dataupdate = techStore.getTechById(id.value)
     name = dataupdate.name;
     area = dataupdate.area;
     url = dataupdate.url;
+    imageName = dataupdate.image;
+    updateImagePath(dataupdate.image)
 })
 
 
 let imageUrl = ref('');
-if (imageBasePath.value && imageBasePath.value != '' && imageBasePath.value.split('/').at(-1) != '') {
-    imageUrl.value = imageBasePath.value;
-} else {
-    imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
-        .href;
+function updateImagePath(imagePath: any) {
+    if (imageBasePath && imageBasePath != '' && imageName != '') {
+    imageUrl.value = `${imageBasePath}/${imagePath}`;
+    } else {
+        imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
+            .href;
+    }
 }
+updateImagePath(imageName)
+
 
 function deleteTech() {
     try {
@@ -71,11 +70,6 @@ function editTechEmit() {
 
 <template>
     <div class="card card-compact max-w-md bg-base-100 shadow-xl">
-        <!-- <div v-if="url" class="tooltip tooltip-bottom tooltip-secondary" :data-tip="url">
-			<figure class="hover:cursor-pointer" @click="searchTech()">
-				<img :src="imageUrl" alt="TechStack"/>
-			</figure>
-		</div> -->
         <figure class="" @click="searchTech()">
             <img :src="imageUrl" class="w-full" alt="TechStack" />
         </figure>

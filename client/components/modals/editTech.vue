@@ -32,7 +32,6 @@ watch(
         newTech.image = tech.image;
         newTech.url = tech.url;
         checkImagePath(`${imgBasePath}/${collectionId}/${newTech.id}/${tech.image}`)
-        console.log(newTech)
     },
     { deep: true },
 );
@@ -45,14 +44,13 @@ function checkImagePath(imagePath: string) {
         imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
             .href;
     }
-    console.log(imageUrl.value)
 }
 
 type tech = {
-    id: String;
-    userid: String;
-    name: String;
-    area: String;
+    id: string;
+    userid: string;
+    name: string;
+    area: string;
     image: string;
     url:  URL | string | null;
 };
@@ -99,8 +97,7 @@ async function updateTech() {
         const res = await $client.updateTechById(newTech.id, newTech);
         // @ts-ignore
         edit_tech_modal.close();
-        // TODO: send a refetch event to /tech
-        techStore.updateTech(newTech)
+        techStore.updateTech(res)
         emit("updatedTech");
         $createSuccessAlert('Tech updated');
     } catch (error) {

@@ -9,7 +9,7 @@ type dbTech = {
 	userid: string,
 	name: string,
 	area: string,
-	image: File | null,
+	image: File | null | string,
 	url: URL | string | null,
 	collectionId?: string,
 	collectionName?: string,
