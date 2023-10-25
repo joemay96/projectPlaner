@@ -6,42 +6,46 @@ import { isValidHttpUrl } from '~/plugins/utils/valFuncs.js';
 const emit = defineEmits(["updatedTech"])
 
 const props = defineProps({
+    // @ts-ignore
     id: ref(),
     userid: String,
-    // name: String,
-    // area: String,
-    // imagePath: String,
-    // url: String,
 });
 
 const { id, userid } = props;
 const refProps = toRefs(props);
+
+let imgBasePath: String = `${$client.getUrl()}/api/files`;
+let collectionId: string | undefined = ""
+
 
 watch(
     refProps.id,
     (newVal, oldVal) => {
         const current_tech_id = refProps.id.value.value
         newTech.id = current_tech_id;
+
         const tech = techStore.getTechById(current_tech_id)
-        console.log(tech)
+        collectionId = tech.collectionId     
+
         newTech.name = tech.name;
         newTech.area = tech.area;
         newTech.image = tech.image;
         newTech.url = tech.url;
-        checkImagePath(tech.image)
+        checkImagePath(`${imgBasePath}/${collectionId}/${newTech.id}/${tech.image}`)
         console.log(newTech)
     },
     { deep: true },
 );
 
-const imageUrl = ref("")
-function checkImagePath(imagePath: String) {
+let imageUrl = ref("")
+function checkImagePath(imagePath: string) {
     if (imagePath && imagePath != '' && imagePath.split('/').at(-1) != '') {
         imageUrl.value = imagePath;
     } else {
         imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
             .href;
     }
+    console.log(imageUrl.value)
 }
 
 type tech = {
@@ -56,10 +60,10 @@ type tech = {
 let newTech: tech = {
     id: id,
     userid: userid,
-    name: "", //ref(""),
-    area: "", //ref(""),
-    image: "", //ref(null),
-    url: "", //ref(""),
+    name: "",
+    area: "",
+    image: "",
+    url: "",
 };
 
 function onFileChange(e: any) {
@@ -158,7 +162,7 @@ async function updateTech() {
                     </div>
                     <div class="w-full flex justify-center items-center mt-4">
                         <img
-                            :src="newTech.image"
+                            :src="imageUrl"
                             class="w-56 rounded-xl"
                             id="techImage"
                         />

@@ -14,7 +14,7 @@ const id = ref('');
 const name = ref('');
 const area = ref('');
 const imagePath = ref('');
-const url = ref('');
+const url = ref();
 
 const counter = ref(0);
 
