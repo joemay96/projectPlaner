@@ -4,6 +4,8 @@ const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp()
 const techStore = useTech();
 // TODO: tech is not selectable, when already selected
 
+let loading = ref(false);
+
 type tech =  {
 	userid: String,
 	name: String,
@@ -29,22 +31,34 @@ function onFileChange(e: any) {
   newTech.image = files[0];
 }
 
+function resetTech() {
+	newTech = {
+		userid: user.id,
+		name: "",
+		area: "",
+		image: null,
+		url: "",
+	}
+}
+
 // save the data to pocketbase
 async function saveTech() {
 	if(newTech.name === "") {
-		// TODO: mache Error erkennbar
-		console.error("Name field must be filled out")
+		$createErrorAlert("Name field must be filled out");
 		return
 	}
 	
 	try {
+		loading.value = true;
 		const res = await $client.createTech(newTech);
-		// @ts-ignore
-		add_tech_modal.close()
 		techStore.addTech(res)
-		$createSuccessAlert('Tech created successful');
-		// TODO: send a refetch event to /tech
-		console.log(res);
+		setTimeout(() => {
+            loading.value = false;
+            // @ts-ignore
+			add_tech_modal.close()
+			$createSuccessAlert('Tech created successful');
+        }, 500);
+		resetTech();
 	} catch (error) {
 		$createErrorAlert('Tech create failed to error');
 		console.log(error)
@@ -94,7 +108,10 @@ async function saveTech() {
 				</label>
 				<input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs my-4" v-on:change="onFileChange" />
 			</div> 
-			<button class="btn btn-success max-w-2xl" @click="saveTech">Save</button>
+			<div v-if="loading" class="flex justify-center">
+                        <span class="loading loading-dots loading-lg"></span>
+                    </div>
+			<button v-else class="btn btn-success max-w-2xl" @click="saveTech">Save</button>
 		</div>
       <!-- </form> -->
     </div>
