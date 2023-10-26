@@ -4,6 +4,10 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', 'nuxt-icon', '@formkit/auto-animate/nuxt', '@pinia/nuxt'],
 
+    plugins: [
+        '~/plugins/auth/index.js',
+    ],
+
   // tailwindcss: {
   // 	cssPath: '~/assets/css/tailwind.css',
   // 	viewer: true,

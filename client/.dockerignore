@@ -1,0 +1,11 @@
+.nuxt
+.output
+dist
+node_modules
+server
+.env
+.env.example
+.gitignore
+.npmrc
+Dockerfile
+README.md
