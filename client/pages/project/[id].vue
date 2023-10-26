@@ -14,7 +14,7 @@ const pj = ref(projectStore.getProjectById(projectId));
 <template>
     <div class="flex flex-col items-center">
         <ProjectDisplay
-            :id="pj.id" 
+            :id="pj.id"
             :userid="pj.userid"
             :title="pj.title"
             :description="pj.description"
