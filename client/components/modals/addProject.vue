@@ -1,13 +1,10 @@
 <script setup lang="ts">
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 const projectStore = useProject();
-// const workEstimation = [
-// "Small (few days)",
-// "Medium (few weeks)",
-// "Long (few months)",
-// "Very long (many months to years)"
-// ]
+
 const workEstimationValues: String[] = ['Small', 'Medium', 'Long', 'Very long'];
+
+let loading = ref(false);
 
 type project = {
     userid: String;
@@ -69,27 +66,26 @@ function tagDataChange(tagData: [String]) {
 
 async function saveProject() {
     if (!newProject || newProject.title == '') {
-        // TODO: emit error to user
-        console.error("Title of the project can't be empty");
+        $createErrorAlert("Title of the project can't be empty");
         return;
     }
     if (newProject.description == '') {
-        console.error('Description can not be empty');
+        $createErrorAlert('Description can not be empty');
         return;
     }
 
-    console.log(newProject);
-
     try {
+        loading.value = true;
         const res = await $client.createProject(newProject);
-        // @ts-ignore
-        add_project_modal.close();
-        // TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
         projectStore.addProject(res);
-        $createSuccessAlert('Project created');
+        setTimeout(() => {
+            loading.value = false;
+            // @ts-ignore
+            add_project_modal.close();
+            $createSuccessAlert('Project created');
+        }, 500);
         resetProject();
     } catch (error) {
-        //TODO: response to user that error happend
         $createErrorAlert('Project not created');
         console.error(error);
     }
@@ -177,7 +173,11 @@ async function saveProject() {
 				</label>
 				<input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs my-4" />
 			</div>  -->
+                    <div v-if="loading" class="flex justify-center">
+                        <span class="loading loading-dots loading-lg"></span>
+                    </div>
                     <button
+                        v-else
                         class="btn btn-success max-w-4xl"
                         @click="saveProject()"
                     >
