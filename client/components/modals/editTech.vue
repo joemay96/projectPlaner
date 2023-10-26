@@ -3,7 +3,7 @@ const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 const techStore = useTech();
 import { isValidHttpUrl } from '~/plugins/utils/valFuncs.js';
 
-const emit = defineEmits(["updatedTech"])
+const emit = defineEmits(['updatedTech']);
 
 const props = defineProps({
     // @ts-ignore
@@ -15,34 +15,39 @@ const { id, userid } = props;
 const refProps = toRefs(props);
 
 let imgBasePath: String = `${$client.getUrl()}/api/files`;
-let collectionId: string | undefined = ""
+let collectionId: string | undefined = '';
 
+let loading = ref(false);
 
 watch(
     refProps.id,
     (newVal, oldVal) => {
-        const current_tech_id = refProps.id.value.value
+        const current_tech_id = refProps.id.value.value;
         newTech.id = current_tech_id;
 
-        const tech = techStore.getTechById(current_tech_id)
-        collectionId = tech.collectionId     
+        const tech = techStore.getTechById(current_tech_id);
+        collectionId = tech.collectionId;
 
         newTech.name = tech.name;
         newTech.area = tech.area;
         newTech.image = tech.image;
         newTech.url = tech.url;
-        checkImagePath(`${imgBasePath}/${collectionId}/${newTech.id}/${tech.image}`)
+        checkImagePath(
+            `${imgBasePath}/${collectionId}/${newTech.id}/${tech.image}`,
+        );
     },
     { deep: true },
 );
 
-let imageUrl = ref("")
+let imageUrl = ref('');
 function checkImagePath(imagePath: string) {
     if (imagePath && imagePath != '' && imagePath.split('/').at(-1) != '') {
         imageUrl.value = imagePath;
     } else {
-        imageUrl.value = new URL('../assets/images/tech/default.jpg', import.meta.url)
-            .href;
+        imageUrl.value = new URL(
+            '../assets/images/tech/default.jpg',
+            import.meta.url,
+        ).href;
     }
 }
 
@@ -52,16 +57,16 @@ type tech = {
     name: string;
     area: string;
     image: string;
-    url:  URL | string | null;
+    url: URL | string | null;
 };
 
 let newTech: tech = {
     id: id,
     userid: userid,
-    name: "",
-    area: "",
-    image: "",
-    url: "",
+    name: '',
+    area: '',
+    image: '',
+    url: '',
 };
 
 function onFileChange(e: any) {
@@ -94,18 +99,21 @@ async function updateTech() {
     }
 
     try {
+        loading.value = true;
         const res = await $client.updateTechById(newTech.id, newTech);
-        // @ts-ignore
-        edit_tech_modal.close();
-        techStore.updateTech(res)
-        emit("updatedTech");
-        $createSuccessAlert('Tech updated');
+        techStore.updateTech(res);
+        setTimeout(() => {
+            loading.value = false;
+            // @ts-ignore
+            edit_tech_modal.close();
+            emit('updatedTech');
+            $createSuccessAlert('Tech updated');
+        }, 500);
     } catch (error) {
         $createErrorAlert('Tech could not be updated');
         console.error(error);
     }
 }
-
 </script>
 
 <template>
@@ -174,7 +182,11 @@ async function updateTech() {
                             v-on:change="onFileChange"
                         />
                     </div>
+                    <div v-if="loading" class="flex justify-center">
+                        <span class="loading loading-dots loading-lg"></span>
+                    </div>
                     <button
+                        v-else
                         class="btn btn-warning max-w-2xl"
                         @click="updateTech"
                     >

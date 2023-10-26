@@ -7,12 +7,12 @@ const projectStore = useProject();
 const props = defineProps({
     id: { type: String, required: true },
     userid: String,
-    title: {type: String, required: true},
-    description: {type: String, default: ""},
-    motivation: {type: String, default: ""},
-    workEstimation: {type: String, default: ""},
-    tags: {type: String, default: ""},
-    techStack: {type: Array<string>, default: [""]},
+    title: { type: String, required: true },
+    description: { type: String, default: '' },
+    motivation: { type: String, default: '' },
+    workEstimation: { type: String, default: '' },
+    tags: { type: String, default: '' },
+    techStack: { type: Array<string>, default: [''] },
     fullTechList: Array,
     created: { type: Date, required: true },
     updated: { type: Date, required: true },
@@ -25,19 +25,19 @@ const {
     description,
     motivation,
     workEstimation,
-    fullTechList,   
+    fullTechList,
     created,
 } = props;
-let { tags, techStack, updated} = props;
+let { tags, techStack, updated } = props;
 
 const titleRef = toRef(title),
-descriptionRef = toRef(description),
-motivationRef = toRef(motivation),
-workEstimationRef = toRef(workEstimation);
+    descriptionRef = toRef(description),
+    motivationRef = toRef(motivation),
+    workEstimationRef = toRef(workEstimation);
 
 let tagList: any = ref([]);
 const techList: any = ref([]);
-let updatedDateString = ref("") 
+let updatedDateString = ref('');
 const createdDateString = `${created.getUTCDate()}-${
     created.getUTCMonth() + 1
 }-${created.getUTCFullYear()}`;
@@ -49,19 +49,23 @@ function setTagList() {
     }
 }
 function updateDateString() {
-    updatedDateString.value = `${updated.getUTCDate()}-${updated.getUTCMonth() + 1}-${updated.getUTCFullYear()}`;
+    updatedDateString.value = `${updated.getUTCDate()}-${
+        updated.getUTCMonth() + 1
+    }-${updated.getUTCFullYear()}`;
 }
 function setTechList() {
-    techList.value = []
+    techList.value = [];
     techStack?.forEach(techId => {
-        techList.value.push(fullTechList?.filter((item: any) => item.id === techId)[0]);
+        techList.value.push(
+            fullTechList?.filter((item: any) => item.id === techId)[0],
+        );
     });
 }
 (function init() {
-    setTagList()
-    updateDateString()
+    setTagList();
+    updateDateString();
     setTechList();
-})()
+})();
 
 function editProject() {
     // @ts-ignore
@@ -71,19 +75,17 @@ function editProject() {
 async function deleteButton() {
     try {
         const res = await $client.deleteProjectById(id);
-        console.log(res);
         $createSuccessAlert('Project deleted');
-        projectStore.deleteProjectById(id)
+        projectStore.deleteProjectById(id);
         navigateTo('/');
     } catch (error) {
         $createErrorAlert('Could not delete project');
         console.log(error);
     }
-    console.log('Delete Button pressed');
 }
 
 function refreshData() {
-    const updatedProject = projectStore.getProjectById(id)
+    const updatedProject = projectStore.getProjectById(id);
     titleRef.value = updatedProject.title;
     descriptionRef.value = updatedProject.description;
     motivationRef.value = updatedProject.motivation;
@@ -115,12 +117,16 @@ function openMarkdownEditor() {
                     <p>updated: {{ updatedDateString }}</p>
                 </div>
 
-                <h2 class="projectHeaderitem text-2xl font-bold text-primary justify-self-center">
+                <h2
+                    class="projectHeaderitem text-2xl font-bold text-primary justify-self-center"
+                >
                     <!---->
                     {{ titleRef }}
                 </h2>
 
-                <div class="projectHeaderitem flex flex-col gap-1 justify-center">
+                <div
+                    class="projectHeaderitem flex flex-col gap-1 justify-center"
+                >
                     <template v-for="(tag, index) in tagList" :key="index">
                         <div
                             v-if="tag != ''"

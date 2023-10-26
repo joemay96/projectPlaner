@@ -1,13 +1,9 @@
 <script setup lang="ts">
-const emit = defineEmits(["updatedProject"])
+const emit = defineEmits(['updatedProject']);
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 const projectStore = useProject();
-// const workEstimation = [
-// "Small (few days)",
-// "Medium (few weeks)",
-// "Long (few months)",
-// "Very long (many months to years)"
-// ]
+
+let loading = ref(false);
 
 const props = defineProps({
     id: String,
@@ -80,23 +76,24 @@ async function editProject() {
     }
 
     try {
+        loading.value = true;
         const res = await $client.updateProjectById(
             updateProject.id,
             updateProject,
         );
-        // @ts-ignore
-        edit_project_modal.close();
-        // TODO: send a refetch event to /, wenn man sich auf / befindet, sonst egal?
-        // ich könnte eigentlich den ganzen Spaß auch in einem Store im Frontend halten und syncen.
-        // TODO: problem with types
-        projectStore.updateProject(res)
-        emit("updatedProject")
-        $createSuccessAlert('Project updated');
+        projectStore.updateProject(res);
+        setTimeout(() => {
+            loading.value = false;
+            // @ts-ignore
+            edit_project_modal.close();
+            emit('updatedProject');
+            $createSuccessAlert('Project updated');
+        }, 500);
     } catch (error) {
         $createErrorAlert('Project not updated');
         console.error(error);
         // @ts-ignore
-        edit_project_modal.close();
+        // edit_project_modal.close();
     }
 }
 </script>
@@ -176,7 +173,11 @@ async function editProject() {
 				</label>
 				<input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs my-4" />
 			</div>  -->
+                    <div v-if="loading" class="flex justify-center">
+                        <span class="loading loading-dots loading-lg"></span>
+                    </div>
                     <button
+                        v-else
                         class="btn btn-success max-w-4xl"
                         @click="editProject()"
                     >
