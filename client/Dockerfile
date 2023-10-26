@@ -1,5 +1,6 @@
 FROM oven/bun:1 as base
-WORKDIR /usr/src/app
+ENV WORKDIR /usr/src/app
+WORKDIR $WORKDIR 
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
@@ -22,15 +23,21 @@ COPY . .
 # [optional] tests & build
 ENV NODE_ENV=production
 RUN bun test
+# generates files in ./output/server/index.mjs
 RUN bun run build
+# When generating files you need to serve the files behind a reverse proxy like nginx
+#* RUN bun run generate
 
 # copy production dependencies and source code into final image
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/index.ts .
-COPY --from=prerelease /usr/src/app/package.json .
+#* COPY --from=prerelease /usr/src/app/index.ts .
+#* COPY --from=prerelease /usr/src/app/package.json .
+COPY --from=prerelease /usr/src/app/ .
+RUN cd ./output/server
 
 # run the app
-USER bun
-EXPOSE 3000/tcp
-ENTRYPOINT [ "bun", "run", "index.ts" ]
+# USER bun
+# EXPOSE 3000/tcp
+EXPOSE 3000
+ENTRYPOINT [ "bun", "run", "index.mjs" ]

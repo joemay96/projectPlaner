@@ -14,9 +14,7 @@ watch($userStatus, (newVal, oldVal) => {
 });
 
 let user = ref();
-if (process.client) {
-    user.value = $client.getUserLS();
-}
+user.value = $client.getUserLS();
 
 let imgUrl = '';
 if (user.value) {
@@ -42,7 +40,8 @@ const logout = async () => {
                     <img :src="imgUrl" alt="user-profile" />
                 </template>
                 <template v-else>
-                    <img src="../../assets/images/dummy-user.jpg" />
+                    <!-- <img src="../../assets/images/dummy-user.jpg" /> -->
+                    <img src="~/assets/images/dummy-user.jpg" />
                 </template>
             </div>
         </label>
