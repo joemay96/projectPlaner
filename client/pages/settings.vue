@@ -7,6 +7,8 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+let loading = ref(false);
+
 const user = $client.getUserLS();
 const oldUsername = user.username;
 
@@ -44,10 +46,13 @@ if (user) {
 
 async function updateUserData() {
     try {
+        loading.value = true;
         const res = await $client.updateUser(updatedUser);
-        $createSuccessAlert('Information updated');
-        console.log(res);
-        window.location.reload();
+        setTimeout(() => {
+            loading.value = false;
+            $createSuccessAlert('Information updated');
+            window.location.reload();
+        }, 500);
     } catch (error) {
         $createErrorAlert('Could not update information');
         console.error(error);
@@ -58,7 +63,7 @@ const baseContentColor = getComputedStyle(document.body).getPropertyValue(
     'var(--bc)',
 );
 
-let iconColor = ref("")
+let iconColor = ref('');
 iconColor.value = baseContentColor;
 let iconSize = '72px';
 
@@ -154,7 +159,11 @@ const ProfileIcon = h(Icon, {
 				</p>
 				<input type="email" placeholder="Change email" class="input input-bordered w-full max-w-lg" v-model="updatedUser.email" />
 			</div> -->
+                <div v-if="loading" class="flex justify-center">
+                    <span class="loading loading-dots loading-lg"></span>
+                </div>
                 <button
+                    v-else
                     class="btn btn-success max-w-xs"
                     @click="updateUserData"
                 >
