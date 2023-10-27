@@ -1,0 +1,57 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: projectplaner-deployment
+  namespace: projectplaner
+  labels:
+    app: projectplaner
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: projectplaner
+  template:
+    metadata:
+      labels:
+        app: projectplaner
+    spec:
+      containers:
+      - name: projectplaner
+        image: joemay96/projectplaner:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: projectplaner-service
+  namespace: projectplaner
+spec:
+  selector:
+    app: projectplaner
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: projectplaner-ingress
+# Wichtig für das Zertifikat wo der Ingress läuft
+  namespace: projectplaner
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`projectplaner.sharky.live`)
+      kind: Rule
+      services:
+        - name: projectplaner-service
+          port: 80
+  tls:
+    secretName: projectplaner-tls

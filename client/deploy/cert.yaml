@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: projectplaner
+  namespace: projectplaner
+spec:
+  secretName: projectplaner-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "projectplaner.sharky.live"
+  dnsNames:
+  - "projectplaner.sharky.live"
