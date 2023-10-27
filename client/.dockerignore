@@ -9,3 +9,4 @@ server
 .npmrc
 Dockerfile
 README.md
+deploy
