@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/joemay96/projectPlaner/app"
+)
 
 func main() {
-	fmt.Println("Hello World!")
+	app := app.New(app.LoadConfig())
 }
