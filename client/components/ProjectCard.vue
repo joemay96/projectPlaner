@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
-    id: {type: String},
+    id: { type: String },
     title: String,
     description: String,
     motivation: String,
@@ -39,7 +39,7 @@ const tagList = tags?.split(',');
 </script>
 
 <template>
-    <div class="card bg-base-100 shadow-2xl">
+    <div class="card bg-base-200 shadow-2xl">
         <!-- <figure><img src="../assets/images/tech/1.jpg" alt="Movie"/></figure> -->
         <div class="card-body">
             <div class="flex flex-row justify-between">
@@ -58,9 +58,12 @@ const tagList = tags?.split(',');
                     <template v-for="(tag, index) in tagList" :key="index">
                         <div
                             v-if="tag != ''"
-                            class="badge badge-md badge-accent"
+                            class="badge badge-accent min-w-32"
                         >
-                            {{ tag }}
+                            <span v-if="tag.length >= 14" class=""
+                                >{{ tag.substr(0, 14) }}...</span
+                            >
+                            <span v-else>{{ tag }}</span>
                         </div>
                     </template>
                 </div>

@@ -18,6 +18,6 @@ type dbTech = {
 }
 
 export type {
+	dbTech,
 	tech,
-	dbTech
 }

@@ -6,7 +6,7 @@ const props = defineProps({
     motivation: String,
     workEstimation: String,
     techStack: Array,
-    tags: Array,
+    tags: Array<String>,
 });
 
 const { id, title, description, motivation, workEstimation, techStack, tags } =
@@ -33,9 +33,12 @@ const { id, title, description, motivation, workEstimation, techStack, tags } =
                     <template v-for="(tag, index) in tags" :key="index">
                         <div
                             v-if="tag != ''"
-                            class="badge badge-md badge-accent"
+                            class="badge badge-accent min-w-32"
                         >
-                            {{ tag }}
+                            <span v-if="tag.length >= 14" class=""
+                                >{{ tag.substr(0, 14) }}...</span
+                            >
+                            <span v-else>{{ tag }}</span>
                         </div>
                     </template>
                 </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const techStore = useTech();
-import {dbTech} from "~/types/tech" 
+// import { dbTech } from '@/types/tech';
 
 const emit = defineEmits(['techSelectChange']);
 const props = defineProps({
@@ -13,7 +13,7 @@ const props = defineProps({
 const selectedTech = ref([]);
 const refProps = toRefs(props);
 
-let data: dbTech[] = techStore.getTechs;
+let data: any[] = techStore.getTechs;
 
 try {
     // Create current Techstack

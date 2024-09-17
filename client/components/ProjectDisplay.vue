@@ -104,7 +104,7 @@ function openMarkdownEditor() {
 </script>
 
 <template>
-    <div class="card my-10 mx-20 bg-neutral text-neutral-content max-w-6xl">
+    <div class="card my-10 sm:mx-20 mx-2 bg-base-200 shadow-2xl max-w-6xl">
         <div class="card-body">
             <!-- items-center text-center -->
             <div class="flex justify-center">

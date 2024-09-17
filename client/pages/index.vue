@@ -5,8 +5,6 @@ const projectStore = useProject();
 definePageMeta({
     middleware: ['auth'],
 });
-
-
 </script>
 
 <template>
@@ -17,7 +15,7 @@ definePageMeta({
             </h1>
         </div>
         <div
-            class="grid grid-cols-1 xl:grid-cols-2 gap-4 px-20 flex-1 justify-around"
+            class="grid grid-cols-1 xl:grid-cols-2 gap-4 md:px-20 px-2 flex-1 justify-around"
             v-auto-animate
         >
             <template v-for="p in projectStore.getProjects" :key="p.id">

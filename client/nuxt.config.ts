@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   //   target: 'static', // -> definetly static, when that is possible. 
-  ssr: true, //false?! -> generating content
+  ssr: false, //false?! -> generating content
 
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', 'nuxt-icon', '@formkit/auto-animate/nuxt', '@pinia/nuxt'],
 
