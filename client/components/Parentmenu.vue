@@ -30,6 +30,9 @@ import { menuLinks } from '~/data/MenuRoutes.js';
                 <NuxtLink to="/tech"> Techstack </NuxtLink>
             </li>
             <li>
+                <NuxtLink to="/profile"> Profile </NuxtLink>
+            </li>
+            <li>
                 <NuxtLink to="/settings"> Settings </NuxtLink>
             </li>
             <div class="divider py-0 my-0"></div>

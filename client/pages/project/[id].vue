@@ -25,6 +25,7 @@ const pj = ref(projectStore.getProjectById(projectId));
             :fullTechList="techStore.getTechs"
             :created="new Date(pj.created)"
             :updated="new Date(pj.updated)"
+            :github="pj.githubLink"
         />
     </div>
 </template>

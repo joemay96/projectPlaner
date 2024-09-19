@@ -1,4 +1,4 @@
-import {dbTech} from "~/types/tech"
+import type {dbTech} from "~/types/tech"
 import client from "~/plugins/auth/client"
 
 const emptyTech: dbTech = {

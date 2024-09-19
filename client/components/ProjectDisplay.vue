@@ -155,6 +155,37 @@ function openMarkdownEditor() {
                             <TechCard :name="t.name" :id="t.id" />
                         </template>
                     </div>
+                    <label
+                        class="input input-bordered flex items-center gap-2 max-w-xl my-2"
+                    >
+                        Github
+                        <input
+                            type="text"
+                            class="grow"
+                            placeholder="https://github.com/joemay96/projectplaner"
+                        />
+                        <!-- v-model="githubRef" -->
+                    </label>
+                    <label
+                        class="input input-bordered flex items-center gap-2 max-w-xl my-2"
+                    >
+                        Link to Project
+                        <input
+                            type="text"
+                            class="grow"
+                            placeholder="https://projectplaner.sharky.live"
+                        />
+                        <!-- v-model="githubRef" -->
+                    </label>
+                    <div class="form-control w-52">
+                        <label class="label cursor-pointer">
+                            <span class="label-text">Publish project</span>
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-accent"
+                            />
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="card-actions justify-between mt-8">

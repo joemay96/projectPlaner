@@ -47,7 +47,13 @@ function closeSidebar() {
                     <img :src="imgUrl" class="mb-4" />
                 </div>
 
-                <p class="mb-2 font-bold text-xl">{{ user.username }}</p>
+                <div class="md:tooltip" data-tip="To Profile">
+                    <NuxtLink
+                        to="/profile"
+                        class="mb-2 font-bold text-xl hover:text-primary hover:link hover:link-primary"
+                        >{{ user.username }}</NuxtLink
+                    >
+                </div>
                 <p class="mb-10">{{ user.email }}</p>
 
                 <li>

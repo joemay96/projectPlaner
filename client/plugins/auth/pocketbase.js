@@ -193,5 +193,48 @@ export default class PBClient {
 			}
 		}
 	}
+
+	// Profile Routes
+
+	// TODO: create profile when user is created through registration process
+	async createProfile(userId) {
+		const data = {
+			"userid": userId,
+			"f_name": "",
+			"l_name": "",
+			"website": "",
+			"info": "",
+			"interests": "",
+			"contact_info": "",
+			"status": ""
+		};
+		
+		return await this.client.collection('pp_userinfo').create(data);
+	}
+
+	async getProfile() {
+		return await this.client.collection('pp_userinfo').getFirstListItem(`userid="${this.client.authStore.model.id}"`);
+	}
+
+	/*
+	Has structure: 
+	const data = {
+		"userid": "RELATION_RECORD_ID",
+		"f_name": "test",
+		"l_name": "test",
+		"website": "test",
+		"info": "test",
+		"interests": "test",
+		"contact_info": "test",
+		"status": "test"
+	};
+	*/
+	async updateProfileById(id, updatedProfile) {
+		return await this.client.collection('pp_userinfo').update(id, updatedProfile);
+	}
+
+	async deleteProfileById(id) {
+		return await this.client.collection('pp_userinfo').delete(id);
+	}
 }
 

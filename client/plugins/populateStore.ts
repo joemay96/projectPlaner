@@ -3,12 +3,14 @@ export default defineNuxtPlugin(nuxtApp => {
 	// loading the store
 	const techs = useTech()
 	const projects = useProject()
+	const profile = useProfile()
 
 	nuxtApp.hook('app:beforeMount', async () => {
 
 		// loading the store
 		const techs = useTech()
 		const projects = useProject()
+		const profile = useProfile()
 
 		// refetch all data, when the app is reloaded
 		try {
@@ -16,8 +18,11 @@ export default defineNuxtPlugin(nuxtApp => {
 			const data = await nuxtApp.$client.getProjectList();
 			//@ts-ignore
 			const tData = await nuxtApp.$client.getTechList();
+			//@ts-ignore
+			const profileData = await nuxtApp.$client.getProfile();
 			projects.loadProjects(data.items);
 			techs.loadTechs(tData);
+			profile.loadProfile(profileData);
 		} catch (error) {
 			console.error(error);
 			//@ts-ignore
@@ -32,8 +37,11 @@ export default defineNuxtPlugin(nuxtApp => {
 			const data = await nuxtApp.$client.getProjectList();
 			//@ts-ignore
 			const tData = await nuxtApp.$client.getTechList();
+			//@ts-ignore
+			const profileData = await nuxtApp.$client.getProfile();
 			projects.loadProjects(data.items);
 			techs.loadTechs(tData);
+			profile.loadProfile(profileData);
 		} catch (error) {
 			console.error(error);
 			//@ts-ignore
@@ -44,6 +52,7 @@ export default defineNuxtPlugin(nuxtApp => {
 	async function deleteStoreData() {
 		techs.clearStore();
 		projects.clearStore();
+		profile.clearStore();
 	}
 
 	return {
