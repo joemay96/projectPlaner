@@ -115,6 +115,12 @@ export default class PBClient {
 		return await this.client.collection('tech').delete(id);
 	}
 
+	async getUserTech(userid) {
+		return await this.client.collection('tech').getList(1, 20, {
+			filter: `userid="${userid}"`,
+		})
+	}
+
 	// Project routes
 
 	async createProject(newProject) { // type tech
@@ -137,6 +143,12 @@ export default class PBClient {
 
 	async deleteProjectById (id) {
 		return await this.client.collection('projects').delete(id);
+	}
+
+	async getUserProjects(userid) {
+		return await this.client.collection('projects').getList(1, 20, {
+			filter: `userid="${userid}"`,
+		})
 	}
 
 	// User routes
