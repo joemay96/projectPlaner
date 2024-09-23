@@ -3,7 +3,7 @@ const techStore = useTech();
 const projectStore = useProject();
 
 definePageMeta({
-    middleware: ['auth'],
+    middleware: ['no-auth'],
 });
 </script>
 

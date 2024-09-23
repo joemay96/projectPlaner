@@ -1,3 +1,4 @@
+import { NuxtLink } from '../../.nuxt/components';
 <script setup lang="ts">
 const { $userStatus, $client } = useNuxtApp();
 const colorMode = useColorMode();
@@ -31,7 +32,9 @@ user.value = $client.getUserLS();
             <UtilsSidebarMenu />
         </div>
         <div v-else>
-            <img src="/penguin/pic.png" alt="Logo" class="mx-4" />
+            <NuxtLink to="/auth">
+                <img src="/penguin/pic.png" alt="Logo" class="mx-4" />
+            </NuxtLink>
             <!-- <p class="text-xl text-accent font-bold mx-4">Start your projects now!</p> -->
         </div>
         <ul class="menu menu-horizontal mr-4">

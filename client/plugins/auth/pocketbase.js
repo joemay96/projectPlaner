@@ -213,7 +213,12 @@ export default class PBClient {
 	}
 
 	async getProfile() {
-		return await this.client.collection('pp_userinfo').getFirstListItem(`userid="${this.client.authStore.model.id}"`);
+		// check if authenticated user exists
+		if(this.client.authStore.model?.id) {
+			return await this.client.collection('pp_userinfo').getFirstListItem(`userid="${this.client.authStore.model.id}"`);
+		} else {
+			return null;
+		}
 	}
 
 	/*
