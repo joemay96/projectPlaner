@@ -19,7 +19,7 @@ const tech = await $client.getUserTech(userid);
 // console.log(projects);
 // console.log(tech);
 
-// let imgBasePath: String = `${$client.getUrl()}/api/files`;
+let imgBasePath: String = `${$client.getUrl()}/api/files`;
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const tech = await $client.getUserTech(userid);
         <h1 class="text-2xl text-secondary font-extrabold pb-8">Projects</h1>
     </div>
     <div
-        class="grid grid-cols-1 xl:grid-cols-2 gap-4 md:px-20 px-2 flex-1 justify-around"
+        class="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-4 md:px-20 px-2 flex-1 justify-around"
         v-auto-animate
     >
         <template v-for="p in projects.items" key="p.id">
@@ -57,16 +57,18 @@ const tech = await $client.getUserTech(userid);
         <h1 class="text-2xl text-secondary font-extrabold pb-8">Techstack</h1>
     </div>
     <div
-        class="grid grid-cols-1 xl:grid-cols-6 lg:grid-cols-3 sm:grid-cols-2 gap-4 px-8 md:px-20 flex-1 justify-around"
+        class="grid grid-cols-2 xl:grid-cols-8 lg:grid-cols-5 sm:grid-cols-4 gap-4 px-8 md:px-20 flex-1 justify-around"
     >
         <template v-for="t in tech.items" :key="t.id">
-            <TechStackCard
+            <UserTechCard
                 :id="t.id"
+                :name="t.name"
+                :area="t.area"
+                :url="t.url"
                 :imageBasePath="
                     `${imgBasePath}/${t.collectionId}/${t.id}` || ''
                 "
-                :dataUpdate="counter"
-                @editTech="openEditTechModal"
+                :image="t.image"
             />
         </template>
     </div>
