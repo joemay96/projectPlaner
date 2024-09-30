@@ -8,6 +8,7 @@ definePageMeta({
     middleware: ['no-auth'],
     pageTransition: false,
     layoutTransition: false,
+    layout: 'public',
 });
 
 const id = route.params.id;
@@ -16,8 +17,31 @@ const u = await $client.client.collection('pp_userinfo').getOne(id, {});
 const userid = u.userid;
 const projects = await $client.getUserProjects(userid);
 const tech = await $client.getUserTech(userid);
-// console.log(projects);
-// console.log(tech);
+
+let techList: any[] = [];
+
+projects.items.forEach((p: any) => {
+    p.techStack.forEach(async (t: String) => {
+        try {
+            const tech = await $client.getTechById(t);
+            techList.push(tech);
+        } catch (error) {
+            console.error(
+                'Can not fetch tech with id: ' + t + ' Error: ' + error,
+            );
+        }
+    });
+});
+
+const techStack: any = [];
+projects.items.forEach((p: any) => {
+    const stack: String[] = [];
+    p.techStack?.forEach((id: String) => {
+        stack.push(techList?.filter((item: any) => item.id === id)[0]);
+    });
+});
+
+console.log('TechStack: ', techStack);
 
 let imgBasePath: String = `${$client.getUrl()}/api/files`;
 </script>
@@ -35,7 +59,7 @@ let imgBasePath: String = `${$client.getUrl()}/api/files`;
         <p class="mx-auto my-5">I am currently: {{ u.status }}</p>
     </div>
     <div class="flex justify-center">
-        <h1 class="text-2xl text-secondary font-extrabold pb-8">Projects</h1>
+        <h2 class="text-3xl text-secondary font-extrabold pb-8">Projects</h2>
     </div>
     <div
         class="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-4 md:px-20 px-2 flex-1 justify-around"
@@ -49,12 +73,13 @@ let imgBasePath: String = `${$client.getUrl()}/api/files`;
                 :description="p.description"
                 :motivation="p.motivation"
                 :techStack="p.techStack"
+                :fullTechList="techStack"
                 :tags="p.tags"
             />
         </template>
     </div>
     <div class="flex justify-center">
-        <h1 class="text-2xl text-secondary font-extrabold pb-8">Techstack</h1>
+        <h2 class="text-3xl text-secondary font-extrabold py-8">Techstack</h2>
     </div>
     <div
         class="grid grid-cols-2 xl:grid-cols-8 lg:grid-cols-5 sm:grid-cols-4 gap-4 px-8 md:px-20 flex-1 justify-around"

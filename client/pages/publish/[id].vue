@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+    middleware: ['no-auth'],
+    layout: 'public',
+});
+</script>
 
 <template>
     <h1 class="title">

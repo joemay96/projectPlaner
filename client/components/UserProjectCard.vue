@@ -5,26 +5,14 @@ const props = defineProps({
     description: String,
     motivation: String,
     techStack: Array,
+    fullTechList: Array,
     tags: String,
 });
 
-const { id, title, description, motivation, techStack, tags } = props;
-
-// const techList: any = [];
-// techStack?.forEach(techId => {
-//     techList.push(fullTechList?.filter((item: any) => item.id === techId)[0]);
-// });
+const { id, title, description, motivation, techStack, tags, fullTechList } =
+    props;
 
 const tagList = tags?.split(',');
-
-// async function deleteProject() {
-//     try {
-//         const res = await $client.deleteProjectById(id);
-//         console.log(res);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
 </script>
 
 <template>
@@ -62,11 +50,11 @@ const tagList = tags?.split(',');
             <div class="divider mb-1">
                 <span class="font-bold">Tech Stack</span>
             </div>
-            <!-- <div class="flex flex-row gap-2 justify-center">
-                <template v-for="t in techList" :key="t" class="flex flex-col">
-                    <TechCard :name="t.name" :id="t.id" />
-                </template>
-            </div> -->
+            <div class="flex flex-row gap-2 justify-center">
+                <!-- <template v-for="t in techList" :key="t" class="flex flex-col">
+                    <TechCard :name="t?.name" :id="t.id" />
+                </template> -->
+            </div>
         </div>
     </div>
 </template>

@@ -4,12 +4,12 @@
     <!-- <utilsVisualToast message="Hallo1" /> -->
     <utilsAppContainer>
         <utilsAppHeader />
-        <div class="container mx-auto">
-            <slot />
-        </div>
+        <!-- <div class="container mx-auto"> -->
+        <slot />
+        <!-- </div> -->
         <!-- <utilsFooter /> -->
     </utilsAppContainer>
-    <!-- <utilsFooter /> -->
+    <utilsFooter />
 </template>
 
 <style global>

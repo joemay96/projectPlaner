@@ -56,7 +56,6 @@ function searchTech() {
             >
                 {{ name }}
             </h2>
-            <!-- <a v-if="url" :href="url" target="_blank" class="link link-secondary">{{ url }}</a> -->
             <p class="">{{ area }}</p>
         </div>
     </div>

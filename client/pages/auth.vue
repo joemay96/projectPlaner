@@ -3,34 +3,45 @@ import { projects } from '../data/TitleProjects.js';
 
 definePageMeta({
     middleware: ['no-auth'],
+    layout: 'public',
 });
-
-// if (window.innerHeight > 1100) {
-// }
 </script>
 
 <template>
+    <Hero class="mb-10" />
     <main class="overflow-hidden">
-        <div class="flex justify-center">
-            <h1 class="text-4xl text-secondary font-extrabold pb-8">
-                ProjectPlaner
-            </h1>
-        </div>
         <div
-            class="grid grid-flow-col gap-4 md:px-20 px-2 flex-1 justify-around grid-rows-4 grid-cols-1 lg:grid-cols-2 lg:grid-rows-2"
+            class="grid grid-cols-1 gap-4 mx-auto px-2 flex-1 justify-around max-w-6xl"
+            v-auto-animate
         >
-            <template v-for="p in projects" key="p.id">
-                <!-- @ts-ignore -->
-                <AuthProjectCard
-                    :id="p.id"
-                    :title="p.title"
-                    :description="p.description"
-                    :motivation="p.motivation"
-                    :workEstimation="p.workEstimation"
-                    :techStack="p.techStack"
-                    :tags="p.tags"
-                    :auth="true"
-                />
+            <template v-for="p in projects" :key="p.id">
+                <div class="collapse collapse-arrow bg-base-200">
+                    <template v-if="p.id == '1'">
+                        <input
+                            type="radio"
+                            name="my-accordion-2"
+                            checked="checked"
+                        />
+                    </template>
+                    <template v-else>
+                        <input type="radio" name="my-accordion-2" />
+                    </template>
+                    <div class="collapse-title text-xl font-medium">
+                        {{ p.title }}
+                    </div>
+                    <div class="collapse-content">
+                        <AuthProjectCard
+                            :id="p.id"
+                            :title="p.title"
+                            :description="p.description"
+                            :motivation="p.motivation"
+                            :workEstimation="p.workEstimation"
+                            :techStack="p.techStack"
+                            :tags="p.tags"
+                            :auth="true"
+                        />
+                    </div>
+                </div>
             </template>
         </div>
         <div class="mb-20"></div>
