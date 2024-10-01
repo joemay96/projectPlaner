@@ -7,6 +7,8 @@ const emptyProfile: dbProfile = {
   userid: client.getUserLS.id || "",
   f_name: "",
   l_name: "",
+  collectionId: "",
+  avatar: null,
   website: "",
   info: "",
   interests: "",

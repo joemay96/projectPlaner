@@ -1,8 +1,10 @@
 type dbProfile = {
 	id: string,
+	collectionId: string,
 	userid: string,
 	f_name?: string,
 	l_name?: string,
+	avatar?: File | null,
 	website?: string,
 	info?: string,
 	interests?: string,

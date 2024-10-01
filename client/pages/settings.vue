@@ -90,11 +90,10 @@ const ProfileIcon = h(Icon, {
             </h1>
         </div>
         <div class="flex flex-col items-center mb-12">
-            <div class="flex items-center flex-col">
+            <!-- <div class="flex items-center flex-col">
                 <div
                     class="w-56 sm:w-96 mt-12 flex justify-center mask mask-squircle"
                 >
-                    <!-- rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 -->
                     <img :src="imgUrl" class="w-56" id="profileImage" />
                 </div>
                 <label
@@ -109,7 +108,7 @@ const ProfileIcon = h(Icon, {
                     class="hidden"
                     v-on:change="profilePictureChange"
                 />
-            </div>
+            </div> -->
             <div class="w-full flex flex-col items-center mt-6 px-2">
                 <div class="form-control w-full max-w-lg mb-4">
                     <p>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const { $client, $createSuccessAlert, $createErrorAlert } = useNuxtApp();
 const store = useProfile();
-// import type { dbProfile } from '@/types/profile';
+import { Icon } from '#components';
+const colorMode = useColorMode();
 
 // const user = $client.getUserLS();
 
@@ -19,6 +20,7 @@ async function saveProfile() {
         const res = await $client.updateProfileById(profile.id, {
             f_name: profile.f_name,
             l_name: profile.l_name,
+            avatar: profile.avatar,
             website: profile.website,
             info: profile.info,
             interests: profile.interests,
@@ -37,6 +39,53 @@ async function saveProfile() {
         console.error(error);
     }
 }
+
+// everything for the avatar/Image thing
+let imgUrl = '';
+if (profile) {
+    imgUrl = `${$client.getUrl()}/api/files/${profile.collectionId}/${
+        profile.id
+    }/${profile.avatar}`;
+}
+
+const baseContentColor = getComputedStyle(document.body).getPropertyValue(
+    'var(--bc)',
+);
+
+let iconColor = ref('');
+iconColor.value = baseContentColor;
+let iconSize = '72px';
+
+if (colorMode.preference === 'dark') {
+    iconColor.value = 'white';
+}
+
+if (window.innerWidth < 384) {
+    iconSize = '52px';
+}
+
+const ProfileIcon = h(Icon, {
+    name: 'mdi:account-circle',
+    size: iconSize,
+    color: iconColor,
+});
+
+function profilePictureChange(e: any) {
+    var files = e.target.files || e.dataTransfer.files;
+    if (!files.length) return;
+    profile.avatar = files[0];
+    updateProfilePicture(files[0]);
+}
+
+//create Reader to update the profile Picture
+function updateProfilePicture(file: File) {
+    let reader = new FileReader();
+    reader.onload = function (e) {
+        const profileImage: any = document.getElementById('avatarImage');
+        profileImage.src = e.target?.result;
+    };
+    reader.readAsDataURL(file);
+}
 </script>
 
 <template>
@@ -51,8 +100,33 @@ async function saveProfile() {
             </p>
             <p class="text my-2">
                 See your
-                <a :href="`/user/${profile.id}`" target="_blank">Profile</a>
+                <a
+                    :href="`/user/${profile.id}`"
+                    target="_blank"
+                    class="text-xl text-secondary hover:underline"
+                    >Profile</a
+                >
             </p>
+            <div class="flex items-center flex-col">
+                <div
+                    class="w-56 sm:w-96 mt-12 flex justify-center mask mask-squircle"
+                >
+                    <!-- rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 -->
+                    <img :src="imgUrl" class="w-56" id="avatarImage" />
+                </div>
+                <label
+                    for="changeProfilePicture"
+                    class="self-center hover:cursor-pointer z-10 relative bottom-8 pl-0 ml-0 sm:bottom-12 left-28"
+                >
+                    <ProfileIcon />
+                </label>
+                <input
+                    id="changeProfilePicture"
+                    type="file"
+                    class="hidden"
+                    v-on:change="profilePictureChange"
+                />
+            </div>
             <div class="w-full flex flex-col">
                 <div class="form-control w-full my-1">
                     <label class="input input-bordered flex items-center gap-2">
