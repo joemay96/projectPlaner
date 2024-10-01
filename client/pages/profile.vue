@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { $client } = useNuxtApp();
+const { $client, $createSuccessAlert, $createErrorAlert } = useNuxtApp();
 const store = useProfile();
-import type { dbProfile } from '@/types/profile';
+// import type { dbProfile } from '@/types/profile';
 
-const user = $client.getUserLS();
+// const user = $client.getUserLS();
 
 definePageMeta({
     middleware: ['auth'],
@@ -11,47 +11,31 @@ definePageMeta({
 
 let loading = ref(false);
 
-// let imgBasePath: String = `${$client.getUrl()}/api/files`;
-
-// let profile: dbProfile = {
-// 	id: user.id,
-// 	firstname: user.f_name,
-// 	lastname: user.l_name,
-// 	website: user.website,
-// 	info: user.info,
-// 	interests: user.interests,
-// 	contact_info: user.contact_info,
-// 	status: user.status,
-// };
-
 const profile = store.getProfile;
 
-// const id = ref('');
-// const name = ref('');
-// const area = ref('');
-// const imagePath = ref('');
-// const url = ref();
-
-// const counter = ref(0);
-
-// function openEditTechModal(pd: any) {
-//     const data = store.getProfile(pd.id.value);
-//     id.value = pd.id;
-//     name.value = data.name;
-//     area.value = data.area;
-//     imagePath.value = pd.imageBasePath.value;
-//     url.value = data.url;
-//     //@ts-ignore
-//     edit_tech_modal.showModal();
-// }
-
-// function refreshData() {
-//     counter.value += 1;
-// }
-
-function saveProfile() {
-    console.log('Save Profile');
-    // store.saveProfile(profile);
+async function saveProfile() {
+    try {
+        loading.value = true;
+        const res = await $client.updateProfileById(profile.id, {
+            f_name: profile.f_name,
+            l_name: profile.l_name,
+            website: profile.website,
+            info: profile.info,
+            interests: profile.interests,
+            contact_info: profile.contact_info,
+            status: profile.status,
+            show: profile.show,
+        });
+        store.updateProfile(profile);
+        setTimeout(() => {
+            loading.value = false;
+            $createSuccessAlert('Profile updated');
+        }, 500);
+    } catch (error) {
+        loading.value = false;
+        $createErrorAlert('Profile not updated - please try again');
+        console.error(error);
+    }
 }
 </script>
 
@@ -64,6 +48,10 @@ function saveProfile() {
             <p class="text-lg my-2">
                 In your profile you can others give some information about you
                 and show your flair ✨
+            </p>
+            <p class="text my-2">
+                See your
+                <a :href="`/user/${profile.id}`" target="_blank">Profile</a>
             </p>
             <div class="w-full flex flex-col">
                 <div class="form-control w-full my-1">
@@ -141,6 +129,16 @@ function saveProfile() {
                             placeholder="Your employment status"
                             class="grow"
                             v-model="profile.status"
+                        />
+                    </label>
+                </div>
+                <div class="form-control w-64">
+                    <label class="label cursor-pointer">
+                        <span class="label-text">Show profile to public</span>
+                        <input
+                            type="checkbox"
+                            class="toggle toggle-accent"
+                            v-model="profile.show"
                         />
                     </label>
                 </div>

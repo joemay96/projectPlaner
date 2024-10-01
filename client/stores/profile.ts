@@ -5,13 +5,14 @@ const emptyProfile: dbProfile = {
   id: "",
   // @ts-ignore
   userid: client.getUserLS.id || "",
-  firstname: "",
-  lastname: "",
+  f_name: "",
+  l_name: "",
   website: "",
   info: "",
   interests: "",
   contact_info: "", 
   status: "",
+  show: false,
 	created: Date.now().toString(),
 	updated: Date.now().toString(),
 }
@@ -30,7 +31,7 @@ export const useProfile = defineStore('profile', {
 
   actions: {
     // update profile
-    updateTech(updateProfile: dbProfile){
+    updateProfile(updateProfile: dbProfile){
       this.profile = updateProfile;
     },
 

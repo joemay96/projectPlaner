@@ -25,7 +25,7 @@ let first = true;
                 :key="p.id"
             >
                 <div class="collapse collapse-arrow bg-base-200">
-                    <template v-if="index != '0'">
+                    <template v-if="index != 0">
                         <input type="radio" name="my-accordion-2" />
                     </template>
                     <template v-else>
