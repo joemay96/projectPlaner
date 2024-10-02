@@ -145,9 +145,9 @@ export default class PBClient {
 		return await this.client.collection('projects').delete(id);
 	}
 
-	async getUserProjects(userid) {
+	async getUserProjects(userid, filter=null) {
 		return await this.client.collection('projects').getList(1, 20, {
-			filter: `userid="${userid}"`,
+			filter: `userid="${userid}"${filter ? " && " + filter : ""}`,
 		})
 	}
 

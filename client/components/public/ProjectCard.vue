@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
     id: { type: String },
+    userid: { type: String, default: '' },
     title: String,
     description: String,
     motivation: String,
@@ -9,23 +10,33 @@ const props = defineProps({
     tags: String,
 });
 
-const { id, title, description, motivation, techStack, tags, fullTechList } =
-    props;
+const {
+    id,
+    userid,
+    title,
+    description = '',
+    motivation,
+    techStack,
+    tags,
+    fullTechList,
+} = props;
 
 const tagList = tags?.split(',');
 </script>
 
 <template>
+    <!-- TODO: change the stlye of the project card a little bit -->
     <div class="card bg-base-200 shadow-2xl">
-        <!-- <figure><img src="../assets/images/tech/1.jpg" alt="Movie"/></figure> -->
         <div class="card-body">
             <div class="flex flex-col">
                 <h2
-                    class="text-2xl font-bold text-primary hover:text-primary-focus hover:underline mb-4"
+                    class="text-2xl font-bold text-primary hover:text-primary-focus hover:underline"
                 >
-                    <NuxtLink :to="`/project/${id}`">{{ title }}</NuxtLink>
+                    <NuxtLink :to="`/user/${userid}/${id}`">{{
+                        title
+                    }}</NuxtLink>
                 </h2>
-                <div class="flex flex-col gap-1 justify-center">
+                <!-- <div class="flex flex-col gap-1 justify-center">
                     <template v-for="(tag, index) in tagList" :key="index">
                         <div
                             v-if="tag != ''"
@@ -37,16 +48,17 @@ const tagList = tags?.split(',');
                             <span v-else>{{ tag }}</span>
                         </div>
                     </template>
-                </div>
+                </div> -->
             </div>
             <div class="divider mb-0">
                 <span class="font-bold">Description</span>
             </div>
-            <p>{{ description }}</p>
-            <div class="divider mb-0">
-                <span class="font-bold">Motivation</span>
-            </div>
-            <p>{{ motivation }}</p>
+            <template v-if="description.length > 125">
+                <p>{{ description.slice(0, 125) }}...</p>
+            </template>
+            <template v-else>
+                <p>{{ description }}</p>
+            </template>
             <div class="divider mb-1">
                 <span class="font-bold">Tech Stack</span>
             </div>

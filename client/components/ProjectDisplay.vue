@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { initCustomFormatter } from 'vue';
-
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
 const projectStore = useProject();
 

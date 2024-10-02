@@ -5,6 +5,7 @@ const route = useRoute();
 
 definePageMeta({
     middleware: ['auth'],
+    layout: 'default',
 });
 
 const projectId = route.params.id;
@@ -12,6 +13,7 @@ const pj = ref(projectStore.getProjectById(projectId));
 </script>
 
 <template>
+    <!-- TODO: here has to be some info about the person, maybe the option to go back etc. -->
     <div class="flex flex-col items-center">
         <ProjectDisplay
             :id="pj.id"

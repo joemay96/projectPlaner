@@ -12,6 +12,8 @@ const emptyProject: dbProject = {
   workEstimation: "",
   techStack: [""],
   tags: "",
+  github_link: "",
+  website: "",
   created: Date.now().toString(),
   updated: Date.now().toString(),
 }
