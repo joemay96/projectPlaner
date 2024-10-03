@@ -2,10 +2,9 @@
 
 <template>
     <utilsAppHeader />
-    <!-- <div class="container mx-auto"> -->
-    <slot />
-    <!-- </div> -->
-    <!-- <utilsFooter /> -->
+    <div>
+        <slot />
+    </div>
     <utilsFooter />
 </template>
 

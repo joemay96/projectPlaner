@@ -19,7 +19,6 @@ const userid = u.userid;
 // @ts-ignore
 const projects = await $client.getUserProjects(userid, 'show=True');
 const tech = await $client.getUserTech(userid);
-
 let techList: any[] = [];
 
 projects.items.forEach((p: any) => {

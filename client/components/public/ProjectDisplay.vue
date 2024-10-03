@@ -128,7 +128,7 @@ function setTechList() {
                             :key="t"
                             class="flex flex-col"
                         >
-                            <TechCard :name="t.name" :id="t.id" />
+                            <PublicTechCard :name="t.name" :id="t.id" />
                         </template>
                     </div>
                 </div>

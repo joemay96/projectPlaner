@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
     id: { type: String },
-    userid: { type: String, default: '' },
+    userid: { type: String },
     title: String,
     description: String,
     motivation: String,
