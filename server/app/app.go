@@ -35,6 +35,7 @@ func (a *App) Start(ctx context.Context) error {
 		Handler: a.router,
 	}
 
+	// TODO: when connection is failing retry connecting after some time.
 	err := a.rdb.Ping(ctx).Err()
 	if err != nil {
 		return fmt.Errorf("Failed to connect to redis: %w", err)

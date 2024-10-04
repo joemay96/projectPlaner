@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { $createSuccessAlert, $createErrorAlert, $client } = useNuxtApp();
+const route = useRoute();
 const projectStore = useProject();
 
 const props = defineProps({
@@ -99,6 +100,22 @@ function refreshData() {
 function openMarkdownEditor() {
     console.log('Add Notes Button pressed');
 }
+
+function shareClick() {
+    if (navigator.share) {
+        navigator
+            .share({
+                title: titleRef.value,
+                text: descriptionRef.value,
+                url: route.fullPath,
+            })
+            .then(() => console.log('Shared successfully'))
+            .catch(error => console.log('Error sharing this project', error));
+    } else {
+        navigator.clipboard.writeText(window.location.href);
+        console.log('Copied Link');
+    }
+}
 </script>
 
 <template>
@@ -190,15 +207,28 @@ function openMarkdownEditor() {
                 <!-- <button class="btn btn-secondary" @click="openMarkdownEditor">
                     Add Notes
                 </button> -->
+                <button class="btn btn-neutral btn-outline" @click="shareClick">
+                    <Icon
+                        size="24px"
+                        name="fluent:share-ios-24-filled"
+                        color="fill-current"
+                    />
+                </button>
                 <div class="flex gap-2">
-                    <button class="btn btn-warning" @click="editProject">
-                        <Icon size="24px" name="mdi:pen" color="white" />
+                    <button
+                        class="btn btn-warning btn-outline"
+                        @click="editProject"
+                    >
+                        <Icon size="24px" name="mdi:pen" color="fill-current" />
                     </button>
-                    <button class="btn btn-error" @click="deleteButton">
+                    <button
+                        class="btn btn-error btn-outline"
+                        @click="deleteButton"
+                    >
                         <Icon
                             size="24px"
                             name="fluent:delete-48-regular"
-                            color="white"
+                            color="fill-current"
                         />
                     </button>
                 </div>

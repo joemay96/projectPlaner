@@ -29,6 +29,7 @@ if (u) {
 <template>
     <div class="flex align-center">
         <!-- TODO: here has to be some info about the person, maybe the option to go back etc. -->
+        <!-- fixed -->
         <div
             class="mt-10 pt-4 mb-2 flex flex-col items-center w-56 rounded-xl px-6 shadow-2xl bg-base-200 h-3/4 pb-10"
         >
